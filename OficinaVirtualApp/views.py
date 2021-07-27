@@ -5,12 +5,14 @@ from django.shortcuts import render, HttpResponse
 def inicio(request):
 
     return render(request, "OficinaVirtualApp/inicio.html")
-    #return HttpResponse("Inicio")
 
+def principal(request):
+    return render(request, "OficinaVirtualApp/principal.html")
 
 def datosPersonales(request):
-
-
     return render(request, "OficinaVirtualApp/datosPersonales.html")
+
+def registro(request):
+    return render(request, "OficinaVirtualApp/registro.html")
 
 

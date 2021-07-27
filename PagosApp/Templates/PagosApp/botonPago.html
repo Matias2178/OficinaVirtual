@@ -1,5 +1,67 @@
 {% extends  "OficinaVirtualApp/PlantillaBase.html" %}
 {% block trabajo %}
-    <h1> paga la deuda lpmqtp</h1>
-    <h2> es una porqueria de bueno</h2>
+<style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 80%;
+          }
+        td, th {
+          border: 1px solid #cee59d;
+          text-align: left;
+          padding: 8px;
+          }
+        tr:nth-child(even) {
+          background-color: #CEE59D;
+          }
+        select{
+            background-color: #CEE59D;
+        }
+</style>
+<div class='container'>
+    <div class ='row'>
+        <h4> Bot&oacute;n de P&aacute;go</h4><hr>
+    </div>
+    <div class = 'row'>
+        <div class = "col">
+      <table>
+        <tr>
+          <th >Pagar</th>
+          <th >Estado</th>
+          <th >Vencimiento</th>
+          <th >Importe</th>
+          <th >Suministro</th>
+          <th >Archivo</th>
+        </tr>
+          <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+          <td>En Proceso de Pago</td>
+          <td>29/07/2021</td>
+          <td>$1.523,24</td>
+          <td>00498798 Pj 42/44 3504 (Martelossi) </td>
+          <td> </td>
+        </tr>
+        
+      </table><br><br>
+            <table>
+        <tr>
+          <th > </th>
+          <th >Medio de Pago</th>
+
+        </tr>
+          <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+          <td>Tarjeta de Credito</td>
+        </tr>
+        </tr>
+          <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+          <td>Pago Mis Cuentas</td>
+        </tr>
+        </tr>
+          <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+          <td>Tarjeta de Credito</td>
+        </tr>
+        
+      </table><br><br>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -1,5 +1,26 @@
 {% extends  "OficinaVirtualApp/PlantillaBase.html" %}
 {% block trabajo %}
-    <h1> Para que te suscribiste si ahora le queres dar de baja</h1>
-    <h2> es una porqueria de bueno</h2>
+<div class='container'>
+    <div class ='row'>
+        <h4> Adhesi&oacute;n Debito Automatico</h4><hr>
+    </div>
+    <div class = 'row'>
+        <div class = "col-8">
+        <p>Suministro:<br>
+        <select id="suministro" name="suministro" size="1" class="txt">          
+          <option value="-1" >Seleccionar suministro</option>          
+          <option value="550049" selected>006091194 PJ 42/44 3454 L MARTELOSS 0 (RECON</option> 
+        </select><br><br>
+
+        <p>Debito Automatico:<br>
+        <select id="suministro" name="suministro" size="1" class="txt">          
+          <option value="-1" >Seleccionar suministro</option>          
+          <option value="550049" selected>No Pose debito atomatico asociado a la cuenta</option> 
+        </select><br><br>
+
+        <button type="button" class="btn btn-outline-primary" id="boton" onclick="submit();"> Continuar </button>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

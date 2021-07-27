@@ -18,6 +18,9 @@ from OficinaVirtualApp import views
 
 urlpatterns = [
     path('', views.inicio, name="Inicio"),
-    path('datosPersonales/', views.inicio, name="datosPersonales"),
+    path('principal/', views.principal, name="Principal"),
+    path('datosPersonales/', views.datosPersonales, name="datosPersonales"),
+    path('registro/', views.registro, name="registro"),
+    
     ]
 

@@ -37,7 +37,7 @@ class Suministro (models.Model):
     
     
     def __str__(self):
-         return '{} {} {}'.format(self.suministro, self.calle, self.numero)
+         return '{} - {} - {} {}'.format(self.suministro, self.cliente, self.calle, self.numero)
   
 class Turno (models.Model):
     apellido = models.CharField(max_length = 20)

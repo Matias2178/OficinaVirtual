@@ -1,24 +1,52 @@
 {% extends  "OficinaVirtualApp/PlantillaBase.html" %}
 {% block trabajo %}
-<div class='container'>
+<style>
+
+  input[type=text], select {
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid #000;
+  border-radius: 6px;
+  background: transparent;
+  background-color: #cee59d;
+}
+label{
+  color: #228B22;
+}
+.btn {
+  background-color: transparent; 
+  color: black; 
+  border-radius: 10px;
+  border: 2px solid #cee59d;
+  box-shadow: rgb(06, 55, 57) 1px 1px;
+}
+
+ </style>
+<div class='container' style= "paddingbottom: 20px;" >
     <div class ='row'>
-        <h4> Adhesi&oacute;n Debito Automatico</h4><hr>
+        <h4> Baja de Debito Automatico</h4><hr>
     </div>
     <div class = 'row'>
         <div class = "col-8">
-        <p>Suministro:<br>
-        <select id="suministro" name="suministro" size="1" class="txt">          
-          <option value="-1" >Seleccionar suministro</option>          
-          <option value="550049" selected>006091194 PJ 42/44 3454 L MARTELOSS 0 (RECON</option> 
-        </select><br><br>
+          <label for= "selSuministro">Suministro:</label><br>
+            <select class="form-select-sm" id="selSuministro" aria-label=".form-select-sm" type= "text">
+                {% for sum in suministros %}
+                    <option value={{forloop.counter}}>{{sum}}</option>
+                {% empty %}
+                    <option selected>No hay suministro Asociado</option>
+                {% endfor %}
+            </select><br>
+        <label for= "debitoAuto">Debito Automatico:</label><br>
+            <select class="form-select-sm" id="debitoAuto" aria-label=".form-select-sm" type= "text">
+                {% for deb in debitos %}
+                    <option value={{forloop.counter}}>{{deb}}</option>
+                {% empty %}
+                    <option selected>No existe debito automatico asociado</option>
+                {% endfor %}
+            </select><br><br>
 
-        <p>Debito Automatico:<br>
-        <select id="suministro" name="suministro" size="1" class="txt">          
-          <option value="-1" >Seleccionar suministro</option>          
-          <option value="550049" selected>No Pose debito atomatico asociado a la cuenta</option> 
-        </select><br><br>
-
-        <button type="button" class="btn btn-outline-primary" id="boton" onclick="submit();"> Continuar </button>
+        <button type="button" class="btn btn-outline-primary" id="boton" onclick="submit();" > Continuar </button>
+        <br><br>
         </div>
     </div>
 </div>

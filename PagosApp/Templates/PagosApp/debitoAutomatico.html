@@ -1,119 +1,84 @@
 {% extends  "OficinaVirtualApp/PlantillaBase.html" %}
 {% block trabajo %}
+<style>
+
+  input[type=text], select {
+  padding: 5px 20px;
+  margin: 8px 0;
+  border: 1px solid #000;
+  border-radius: 6px;
+  background: transparent;
+  background-color: #cee59d;
+}
+input[type=text]:focus {
+  background-color: #87dd87
+}
+label{
+  color: #228B22;
+}
+.btn {
+  background-color: transparent; 
+  color: black; 
+  border-radius: 10px;
+  border: 2px solid #cee59d;
+  box-shadow: rgb(06, 55, 57) 1px 1px;
+}
+
+ </style>
 <div class='container'>
     <div class ='row'>
-        <h4> Adhesi&oacute;n Debito Automatico</h4>
+        <h4> Adhesi&oacute;n Debito Automatico</h4><hr>
     </div>
     <div class = 'row'>
-        <div class = "col-8">
-        Suministro:<br>
-        <select id="suministro" name="suministro" size="1" class="form-select form-select-sm">          
-          <option value="-1" >Seleccionar suministro</option>          
-          <option value="550049" selected>006091194 PJ 42/44 3454 L MARTELOSS 0 (RECONQUISTA)</option> 
-        </select><br>
-
-        Tarjeta:<br>
-        <select id="tarjeta" name="tarjeta" size="1" class="form-select form-select-sm">
-          <option value="1" selected>VISA – TARJETA DE CRÉDITO</option>          
-          <option value="2" >MASTERCARD</option>          
-          <option value="3" >VISA – TARJETA DE DÉBITO</option>          
+      <div class = "col-8">
+        <label for= "selSuministro">Suministro:</label><br>
+            <select class="form-select-sm" id="selSuministro" aria-label=".form-select-sm" type= "text">
+                {% for liq in suministros %}
+                    <option value={{forloop.counter}}>{{liq}}</option>
+                {% empty %}
+                    <option selected>No hay suministro Asociado</option>
+                {% endfor %}
+             </select><br>
+        <label>Tarjeta:</label><br>
+        <select id="tarjeta" name="tarjeta" size="1" class="form-select-sm" type= "text">
+          {% for trj in tarjetas  %}
+            <option value={{forloop.counter}}type= "text">{{trj}}</option>
+          {% endfor %}          
         </select><br>
         
-        Banco:<br>
-        <select id="banco" name="banco" size="1" class="form-select form-select-sm">          
-          <option value="0" selected>BANCO GALICIA</option>          
-          <option value="1" >NUEVO BANCO DE SANTA FE S.A.</option>          
-          <option value="2" >BAN SUD</option>          
-          <option value="3" >BANCO MACRO S.A.</option>          
-          <option value="4" >BANCO SANTANDER RÍO S.A.</option>
-          <option value="5" >BBVA BANCO FRANCES S.A.</option>
-          <option value="6" >CITIBANK</option>
-          <option value="7" >BANCO DE LA NACIÓN ARGENTINA</option>          
-          <option value="8" >BANCO PROV. DE BUENOS AIRES</option>          
-          <option value="9" >ICBC - BANK CHINA</option>          
-          <option value="10" >BANCO PROV. DE CÓRDOBA</option>          
-          <option value="11" >BANCO SUPERVIELLE S.A.</option>          
-          <option value="12" >BANCO CIUDAD DE BUENOS AIRES</option>          
-          <option value="13" >BANCO PATAGONIA S.A.</option>          
-          <option value="14" >BANCO HIPOTECARIO S.A.</option>          
-          <option value="15" >BANCO DE SAN JUAN S.A.</option>          
-          <option value="16" >BANCO TUCUMÁN S.A.</option>          
-          <option value="17" >BANCO MUNICIPAL DE ROSARIO</option>          
-          <option value="18" >BANCO DEL CHUBUT S.A.</option>          
-          <option value="19" >BANCO DE SANTA CRUZ S.A.</option>          
-          <option value="20" >BANCO DE LA PAMPA SOCIEDAD DE ECONOMÍA MIXT</option>          
-          <option value="21" >BANCO DE CORRIENTES S.A.</option>          
-          <option value="22" >BANCO PROVINCIA NEUQUÉN</option>          
-          <option value="23" >HSBC BANK ARGENTINA S.A.</option>          
-          <option value="24" >BANCO CREDICOOP COOP.LTDO.</option>          
-          <option value="25" >BANCO ITAÚ ARGENTINA S.A.</option>          
-          <option value="26" >BANCO PROV.DE TIERRA DEL FUEGO</option>          
-          <option value="27" >BANCO REPÚBLICA O. DEL URUGUAY</option>          
-          <option value="28" >BANCO MERIDIAN S.A.</option>          
-          <option value="29" >BANCO COMAFI SOCIEDAD ANÓNIMA</option>          
-          <option value="30" >BANCO PIANO S.A.</option>          
-          <option value="31" >BANCO RIOJA SOCIEDAD ANÓNIMA UNIPERSONAL</option>          
-          <option value="32" >NUEVO BANCO DEL CHACO S.A.</option>          
-          <option value="33" >BANCO DE FORMOSA S.A.</option>          
-          <option value="34" >BANCO DE SANTIAGO DEL ESTERO S.A.</option>          
-          <option value="35" >BANCO INDUSTRIAL S.A.</option>          
-          <option value="36" >NUEVO BANCO DE ENTRE RÍOS S.A.</option>          
-          <option value="37" >BANCO COLUMBIA S.A.</option>          
-          <option value="38" >BANCO BICA S.A.</option>          
-          <option value="39" >BANCO COINAG S.A.</option>          
-          <option value="98" >DESCONOCIDO</option>
+        <label>Banco:</label><br>
+        <select id="banco" name="banco" size="1" class="form-select-sm" type= "text">  
+          {% for bco in bancos  %}
+            <option value={{forloop.counter}}>{{bco}}</option>
+          {% endfor %}        
         </select><br>
 
-        Nombre del titular de la tarjeta:<br>
-        <INPUT name="nombre" id="nombre" size="38" maxlength="60" value="" class="txt"><br>
+        <label>Nombre del titular de la tarjeta:</label><br>
+        <INPUT name="nombre" id="nombre" size="38" maxlength="60" value="" class="txt" type= "text"><br>
 
-        Domicilio del titular de la tarjeta:<br>
-        <INPUT name="domiciliotitular" id="domiciliotitular" size="38" maxlength="60" value="" class="txt"><br>
+        <label>Domicilio del titular de la tarjeta:</label><br>
+        <INPUT name="domiciliotitular" id="domiciliotitular" size="38" maxlength="60" value="" class="txt" type= "text"><br>
         
-        Número de tarjeta: (Ingrese todos los n&uacute;meros sin guiones ni espacios)<br>
-        <INPUT name="numero" id="numero" size="20" maxlength="16" value="" class="txt"><br>
+        <label>Número de tarjeta: (Ingrese todos los n&uacute;meros sin guiones ni espacios)</label><br>
+        <INPUT name="numero" id="numero" size="20" maxlength="16" value="" class="txt" type= "text"><br>
         
-        Vencimiento de la tarjeta:<br>
-        <select id="mes" name="mes" size="1" class="form-select-sm">
-          <option value="01" >Enero</option>          
-          <option value="02" >Febrero</option>          
-          <option value="03" >Marzo</option>          
-          <option value="04" >Abril</option>          
-          <option value="05" >Mayo</option>          
-          <option value="06" >Junio</option>          
-          <option value="07" selected>Julio</option>          
-          <option value="08" >Agosto</option>          
-          <option value="09" >Septiembre</option>          
-          <option value="10" >Octubre</option>          
-          <option value="11" >Noviembre</option>          
-          <option value="12" >Diciembre</option>
-        </select> / 
+       
+         <label> Vencimiento de la tarjeta:</label><br>
+          
+          <select id="mes" name="mes" size="1" class="form-select-sm" type= "text">
+            {% for mm  in meses %}
+              <option value={{forloop.counter}} >{{mm}}</option> 
+            {% endfor %}
+                    
+          </select> 
+          <select id="anio" name="anio" size="1" class="form-select-sm" type= "text">
+            {% for fecha in aios %}
+              <option value={{forloop.counter}}> {{fecha}}</option>
+            {% endfor %}
+          </select><br><br>
+        
 
-        <select id="anio" name="anio" size="1" class="form-select-sm">
-          <option value="2021" selected>2021</option>          
-          <option value="2022" >2022</option>          
-          <option value="2023" >2023</option>          
-          <option value="2024" >2024</option>          
-          <option value="2025" >2025</option>          
-          <option value="2026" >2026</option>          
-          <option value="2027" >2027</option>          
-          <option value="2028" >2028</option>          
-          <option value="2029" >2029</option>          
-          <option value="2030" >2030</option>          
-          <option value="2031" >2031</option>
-          <option value="2032" >2032</option>
-          <option value="2033" >2033</option>
-          <option value="2034" >2034</option>
-          <option value="2035" >2035</option>
-          <option value="2036" >2036</option>
-          <option value="2037" >2037</option>
-          <option value="2038" >2038</option>
-          <option value="2039" >2039</option>
-          <option value="2040" >2040</option>
-          <option value="2041" >2041</option>
-        </select><br><br>
-
-        <button type="button" class="btn btn-outline-primary" id="boton" onclick="submit();"> Continuar </button><br><br>
+        <button type="button" class="btn" id="boton" onclick="submit();"> Continuar </button><br><br>
         <p style='font-size: 0.7rem; padding-left: 14px'>Estimado Usuario, a partir de la pr&oacute;xima facturaci&oacute;n, ser&aacute; aplicado el d&eacute;bito autom&aacute;tico.  Por favor, verificar su saldo en Liquidaci&oacute;n de deuda y p&aacute;guela a trav&eacute;s de los medios habilitados. Agradecemos su contacto.<br><br>
         </p>
         </form>

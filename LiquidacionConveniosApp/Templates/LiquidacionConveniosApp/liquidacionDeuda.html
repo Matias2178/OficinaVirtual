@@ -11,10 +11,12 @@
         <div class = "col-8">
             Suministro:<br>
             <select class="form-select form-select-sm" id= "selSuministro" aria-label=".form-select-sm example">
-                <option selected>006091194 Pj 42/44 San Martin (Reconquista)</option>
-                <option value="1">Seleccionar Suminisro</option>
-                <option value="2">0006091194 Pj 42/44 San Martin (Reconquista)</option>
-            </select><br>
+                {% for liq in suministros %}
+                    <option value={{forloop.counter}}>{{liq}}</option>
+                {% empty %}
+                    <option selected>No hay suministro Asociado</option>
+                {% endfor %}
+             </select><br>
         </div>
     </div>
     <div class = "row" >
@@ -43,25 +45,23 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Seleccionar</th>
+                    <th scope="col"></th>
                     <th scope="col">Documento</th>
                     <th scope="col">Vencimiento</th>
                     <th scope="col">Importe</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><div class="form-check">  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"> </div></td>
-                    <td>FACTURA-2021-01-02</td>
-                    <td>11-02-29</td>
-                    <td>$1.245,23</td>
-                </tr>
-                <tr>
-                    <td><div class="form-check">  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                    <td>Intereses-Deuda</td>
-                    <td>15-08-21</td>
-                    <td>$495,23</td>
-                </tr>
+                 {% for deuda in deudas %}
+                    <tr>
+                        <td><div class="form-check">  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"> </div></td>
+                    
+                        <td>{{deuda.documento}}</td>
+                        <td>{{deuda.vencimiento}}</td>
+                        <td>{{deuda.importe}}</td>
+                        <td
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
         </div>

@@ -22,64 +22,36 @@
 <div class='container'>
   <div class ='row'>
     <h4> Consulta Facturas</h4><hr>
-    <p>Suministro:<br>
-        <select id="suministro" name="suministro" size="1" class="txt">          
-          <option value="-1" >Seleccionar suministro</option>          
-          <option value="550049" selected>006091194 PJ 42/44 3454 L MARTELOSS 0 (RECONQUISTA)</option> 
-        </select><br><br>
+    <label for= "selSuministro">Suministro:</label><br>
+    <select class="form-select-sm" id="selSuministro" aria-label=".form-select-sm" type= "text"><br><br>
+      {% for sum in suministros %}
+        <option value={{forloop.counter}}>{{sum}}</option>
+      {% empty %}
+        <option selected>No hay suministro Asociado</option>
+      {% endfor %}
+      </select>
   </div>
   <div class ='row'>
     <div class = 'col=6'>
-
       <table>
         <tr>
           <th width='30%'>Detalle Documento</th>
-          <th width='12%'>Vencimiento Cuota 1</th>
-          <th width='12%'>Importe Cuota 1</th>
-          <th width='12%'>Vencimiento Cuota 2</th>
-          <th width='12%'>Importe Cuota 2</th>
+          <th width='20%'>Primer Vencimiento</th>
+          <th width='12%'>Importe</th>
+          <th width='30%'>Segundo Vencimiento </th>
+          <th width='12%'>Importe</th>
           <th width='10%'>Archivo</th>
         </tr>
-          <td>Factura-2021-03</td>
-          <td>12-07-2021</td>
-          <td>$1.534,24</td>
-          <td>11-08-2021</td>
-          <td>$1.534,24</td>
-          <td> </td>
-        </tr>
-        </tr>
-          <td>Factura-2021-03</td>
-          <td>12-07-2021</td>
-          <td>$1.534,24</td>
-          <td>11-08-2021</td>
-          <td>$1.534,24</td>
-          <td> </td>
-        </tr>
-        </tr>
-          <td>Factura-2021-03</td>
-          <td>12-07-2021</td>
-          <td>$1.534,24</td>
-          <td>11-08-2021</td>
-          <td>$1.534,24</td>
-          <td> </td>
-        </tr>
-        </tr>
-          <td>Factura-2021-03</td>
-          <td>12-07-2021</td>
-          <td>$1.534,24</td>
-          <td>11-08-2021</td>
-          <td>$1.534,24</td>
-          <td> </td>
-        </tr>
-        </tr>
-          <td>Factura-2021-03</td>
-          <td>12-07-2021</td>
-          <td>$1.534,24</td>
-          <td>11-08-2021</td>
-          <td>$1.534,24</td>
-          <td> </td>
-        </tr>
-       
+        {% for factura in facturas  %}
+          <tr>
+            <td>{{factura.detalle_documento}}</td>
+            <td>{{factura.vencimiento_pri }}</td>
+            <td>${{factura.importe_pri}}</td>
+            <td>{{factura.vencimiento_seg }}</td>
+            <td>${{factura.importe_seg}}</td>
+            <td></td>
+          </tr>
+          {% endfor %}    
       </table><br><br>
     </div>
   </div>

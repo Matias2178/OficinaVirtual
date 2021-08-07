@@ -1,5 +1,41 @@
 {% extends  "OficinaVirtualApp/PlantillaBase.html" %}
 {% block trabajo %}
-    <h1> Pagina en Desarrollo</h1>
-    <h2> </h2>
+<div class='container'>
+    <div class ='row'>
+        <h4> Liquidacion de Deuda / Convenio de Pago</h4><hr>
+    </div>
+    <div class = "row">
+        <div class = "col">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Generado</th>
+                        <th scope="col">Importe</th>
+                        <th scope="col">Cuotas</th>
+                        <th scope="col">Valor Cuota</th>
+                        <th scope="col">Prox Vencimiento</th>
+                        <th scope="col">Cuotas Pagadas</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for convenio in convenios %}
+                        <tr>                      
+                            <td>{{convenio.fecha_generacion}}</td>
+                            <td>{{convenio.importe}}</td>
+                            <td>{{convenio.cuotas}}</td>
+                            <td>{{convenio.importe_cuota}}</td>
+                            <td>{{convenio.prox_vencimiento}}</td>
+                            <td>{{convenio.cuotas_pagadas}}</td>
+                            <td>{{convenio.estado}}</td>
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

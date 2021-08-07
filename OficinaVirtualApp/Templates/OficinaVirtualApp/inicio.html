@@ -11,7 +11,7 @@
     <title>Oficina Virtual</title>
   </head>
   <body >
-    <div class= "imagenFondo">  
+    <div class= "imagenFondo" >  
       {% load static %}
         <img src="{% static 'OficinaVirtualApp/img/Reconquista_1.jpeg' %}"  class="img-fluid"  alt="Reconquista de Noche" >
       <div class= "ingreso"> 
@@ -19,26 +19,26 @@
           <div class="row" >
             <div class="col">
               <p><table cellPadding="0" cellSpacing="0">
-                <tr>
-                  <td><b>Recuerde que antes de iniciar una sesi&oacute;n debe estar registrado</b></td>
-                </tr>
+                
+                  <h5><b>Recuerde que antes de iniciar una sesi&oacute;n debe estar registrado</b></h5>
+               
               </table><br><hr>
               <h4>Inicio de Sesi&oacute;n<br></h4><hr>
               <main class= "container" >
                 <div class="row" >
                     <div class="col-6">    
-                      Correo electr&oacute;nico:
+                      <h5>Correo electr&oacute;nico:</h5>
                     </div>
                     <div class="col-6">
-                      <INPUT type="email" id="correo" name=size="38" maxlength="255" class="form-control" required><br>
+                      <INPUT type="email" id="correo" name="correo" size="38" maxlength="255" class="form-control" required style= "  background: transparent; color: #191970"><br>
                     </div>
                   </div>
                   <div class="row" >
                     <div class="col-6">    
-                        Contrase&ntilde;a:
+                        <h5>Contrase&ntilde;a:</h5>
                     </div>
                     <div class="col-6">
-                        <INPUT type="password" id="password2" name="password2" size="38" maxlength="255" class="form-control" required><br>
+                        <INPUT type="password" id="password2" name="password2" size="38" maxlength="255" class="form-control" required style= "  background: transparent; color: #191970"><br>
                     </div>
                 </div>
               </main>
@@ -51,7 +51,6 @@
 
       </div>
     </div>
-
 <style>
   .imagenFondo{
       position: relative;
@@ -64,8 +63,17 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #00FF00;
+      color: #191970;
   }
+
+  .img {
+    background-color : rgba(ff,ff,ff,0.5)
+  }
+  .password2{
+    background: transparent; color: #191970
+
+  }
+
  
 </style>
 

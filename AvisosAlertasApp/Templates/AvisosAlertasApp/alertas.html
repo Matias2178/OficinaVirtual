@@ -1,5 +1,32 @@
 {% extends  "OficinaVirtualApp/PlantillaBase.html" %}
 {% block trabajo %}
-    <h1> P&aacute;gina en Desarrollo</h1>
-           
+    <div class='container'>
+        <div class ='row'>
+            <h4> Alertas</h4><hr>
+        </div>
+        <div class = 'row'>
+            {% if alertas %}
+                <table class="table">
+                    <tr>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Origen</th>
+                        <th scope="col">Motivo</th>
+                        <th scope="col">Mensaje</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                    <tbody>
+                        {% for alerta in alertas %}
+                            <tr>
+                                <td>{{ alerta.fecha }}</td><br>
+                                <td>{{ alerta.origen }}</td><br>
+                                <td>{{ alerta.motivo }}</td><br>
+                                <td>{{ alerta.mensaje }}</td><br>
+                                <td>{{ alerta.estado }}</td><br>
+                            </tr> 
+                        {% endfor %}               
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

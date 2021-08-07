@@ -10,9 +10,15 @@ class Factura (models.Model):
     vencimiento_seg = models.DateField()
     importe_seg = models.CharField(max_length = 20)
     documento = models.BinaryField()
+    
+    def __str__(self):
+        return '{}'.format(self.detalle_documento)
 
 class Consumo (models.Model):
     suministro = models.ForeignKey(Suministro, on_delete= models.CASCADE)
     periodo = models.DateField()
     consumo = models.IntegerField()
+    
+    def __str__(self):
+        return '{} ({}) '.format(self.suministro, self.periodo)
     

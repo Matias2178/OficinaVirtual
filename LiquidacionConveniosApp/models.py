@@ -11,8 +11,15 @@ class Deuda (models.Model):
     estado = models.CharField(max_length = 20)
     
 class Convenio (models.Model):
-    suministro = models.ForeignKey(Suministro, on_delete= models.CASCADE)
+    cliente = models.ForeignKey(Cliente, on_delete= models.CASCADE)
     fecha_generacion = models.DateField()
     importe = models.CharField(max_length = 10)
     cuotas = models.IntegerField()
+    importe_cuota = models.CharField(max_length = 10)
+    prox_vencimiento = models.DateField( )
+    cuotas_pagadas = models.IntegerField()
+    estado = models.CharField(max_length = 10)
+    
+    def __str__ (self):
+        return '{} - ${} Cuotas: {}/{}' .format(self.cliente, self.importe, self.cuotas_pagadas, self.cuotas)
     

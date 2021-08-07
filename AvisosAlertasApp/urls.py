@@ -18,6 +18,6 @@ from AvisosAlertasApp import views
 
 urlpatterns = [
     path('avisos/', views.avisos, name="avisos"),
-    path('alertas/', views.alertas, name="alertas"),
+    path('alertas/<int:cliente_id>/', views.alertas, name="alertas"),
     ]
 

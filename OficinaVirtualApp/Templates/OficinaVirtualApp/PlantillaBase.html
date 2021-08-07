@@ -2,7 +2,7 @@
 {% load static %}
 <!doctype html>
 <html lang="es">
-  <head>
+  <head style="position: fixed;">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -65,7 +65,7 @@
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href={% url 'avisos' %}>Avisos</a></li>
-                    <li><a class="dropdown-item" href={% url 'alertas' %}>Alertas</a></li>
+               
                   </ul>
               </li>
               <li class="nav-item">
@@ -105,6 +105,15 @@
     .dropdown-menu{
       background-color: #dff7aa; 
     }
+    #header {
+      /*position: fixed;*/
+      top: 0;
+      width: 100%;
+      padding: 15px 20px;
+      background-color: #00853E
+      font-size: 15px;
+      
+}
   </style>
   </body>
 </html>

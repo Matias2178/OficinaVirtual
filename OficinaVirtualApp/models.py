@@ -24,6 +24,29 @@ class Cliente (models.Model):
         return '{} {}'.format(self.apellido, self.nombre)
     
 class Suministro (models.Model):
+    TIPO = [
+        ('RES', 'Residencial'),
+        ('RUL', 'Rural'),
+        ('COM', 'Comercial'),
+        ('PYM', 'Pymes'),
+        ('IND', 'Industria'),
+    ]
+    DEMANDA = [
+        ('PEQ', 'Pequeña'),
+        ('MED', 'Mediana'),
+        ('GRD', 'Grandes'),
+        ('TRP', 'Trifasico Pequeña'),
+        ('TRM', 'Trifasico Mediana'),
+        ('TRG', 'Trifasico Grandes'),
+        ('TRI', 'Industriales'),
+    ]
+    ESTADO = [
+        ('ACT', 'Activo'),
+        ('SOL', 'Solicitado'),
+        ('BJA', 'Baja'),
+        ('DES', 'Desconectado'),
+    ]
+        
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, blank=True, null= True)
     suministro = models.IntegerField()
     calle = models.CharField(max_length=30)
@@ -31,14 +54,19 @@ class Suministro (models.Model):
     piso = models.IntegerField(blank=True, null=True)
     depto = models.CharField(max_length=2, blank=True, null=True)
     barrio = models.CharField(max_length=20)
-    tipo_consumo = models.CharField(max_length=20)
-    demanda = models.CharField(max_length= 20)
-    estado = models.IntegerField()
-    
+    tipo_consumo = models.CharField(max_length=3, choices= TIPO)
+    demanda = models.CharField(max_length=3, choices= DEMANDA)
+    estado = models.CharField(max_length=3, choices= ESTADO)
     
     def __str__(self):
          return '{} - {} - {} {}'.format(self.suministro, self.cliente, self.calle, self.numero)
-  
+
+
+    
+    
+    
+    
+   
 class Turno (models.Model):
     apellido = models.CharField(max_length = 20)
     nombre = models.CharField(max_length =20)

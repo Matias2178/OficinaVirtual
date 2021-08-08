@@ -1,3 +1,9 @@
 $cat .gitignore
+.idea/
+.idea/*
+*.pyc
+log/
+__pycache__/*
+
 
 

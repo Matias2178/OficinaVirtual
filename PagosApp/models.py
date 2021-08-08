@@ -13,6 +13,7 @@ class Boton_Pago(models.Model):
     
 class Pagos (models.Model):
     cliente = models.ForeignKey(Cliente, on_delete= models.CASCADE)
+    suministro = models.IntegerField()
     factura = models.CharField(max_length = 20)
     fecha_pago = models.DateField()
     importe = models.CharField(max_length = 20)

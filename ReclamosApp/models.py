@@ -20,9 +20,13 @@ class Reclamos (models.Model):
     suministro = models.ForeignKey(Suministro, on_delete= models.CASCADE)
     tipo_reclamo =  models.CharField(max_length=3, choices= RECLAMO)
     detalle = models.TextField()
-    alta = models.DateTimeField(auto_now_add = True, blank = True)
-    imagen1 = models.ImageField(upload_to= 'reclamos')
-    imagen2 = models.ImageField(upload_to= 'reclamos')
+    alta = models.DateTimeField(auto_now_add = True)
+    imagen1 = models.ImageField(upload_to= 'reclamos', blank = True, null=True)
+    imagen2 = models.ImageField(upload_to= 'reclamos', blank = True, null = True)
+
+    
+    def __str__(self):
+        return '{} - {}'.format(self.suministro, self.tipo_reclamo)
 
 class Seguimiento (models.Model):
     reclamo = models.ForeignKey(Reclamos, on_delete = models.CASCADE, blank=True, null=True )

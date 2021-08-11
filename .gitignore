@@ -4,7 +4,15 @@ $cat .gitignore
 *.pyc
 log/
 __pycache__/*
+.vscode/*
+.idea/*
+media/*
+AvisosAlertasApp/migrations/
+ConsultasApp/migrations/
+LiquidacionConveniosApp/migrations/
+OficinaVirtualApp/migrations/
+PagosApp/migrations/
+ReclamosApp/migrations/
+UsuarioApp/migrations/
 
 
-
-.vscode/launch.json

@@ -10,19 +10,14 @@
     <div class = 'row'>
         <div class = "col-8">
             Suministro:<br>
-            <select class="form-select form-select-sm" id= "selSuministro" aria-label=".form-select-sm example">
-                {% for liq in suministros %}
-                    <option value={{forloop.counter}}>{{liq}}</option>
-                {% empty %}
-                    <option selected>No hay suministro Asociado</option>
-                {% endfor %}
-             </select><br>
+            <form method="post" enctype="multipart/form-data">
+                 {% csrf_token %}
+                 {{ form.suministro}}<br>
+                <button type="submit" class="btn btn-outline-primary" >Seleccionar</button>
+             </form>
+             {{request.POST}}
+            <p>hola {{medidor.id}}</p>
         </div>
-    </div>
-    <div class = "row" >
-        <div class= "col-8">
-            <button type="button" class="btn btn-outline-primary">Aceptar</button>
-        </div><br><br><br>
     </div>
     <div class ='row'>
         <div class = 'col-6'> 
@@ -40,7 +35,7 @@
     <div class = "row">
         <div class = "col">
         <br>
-            <div class="alert alert-primary" role="alert" align="center"> Seleccione deuda a liquidar
+            <div class="alert alert-primary" role="alert" align="center" id = > Seleccione deuda a liquidar
             </div>
         <table class="table">
             <thead>

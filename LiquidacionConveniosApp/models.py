@@ -18,7 +18,7 @@ class Deuda (models.Model):
     suministro = models.ForeignKey(Suministro, on_delete= models.CASCADE)
     documento = models.CharField(max_length = 30)
     vencimiento = models.DateField()
-    importe = models.CharField(max_length = 10)
+    importe = models.FloatField()
     factura = models.CharField(max_length = 30)
     estado = models.CharField(max_length=3, choices= ESTADO)
     tipo = models.CharField(max_length=3, choices= TIPO)
@@ -27,14 +27,21 @@ class Deuda (models.Model):
         return '{} '.format(self.documento)
     
 class Convenio (models.Model):
+    ESTADO =[
+        ("GEN", "Generado"),
+        ("ACT", "Activo"),
+        ("RET", "Pago Retrasado"),
+        ("CAN", "Deuda Candelada"),
+        ("DAN", "Deuda Anulada"),
+    ]
     cliente = models.ForeignKey(Cliente, on_delete= models.CASCADE)
     fecha_generacion = models.DateField()
-    importe = models.CharField(max_length = 10)
+    importe = models.FloatField()
     cuotas = models.IntegerField()
-    importe_cuota = models.CharField(max_length = 10)
+    importe_cuota = models.FloatField()
     prox_vencimiento = models.DateField( )
     cuotas_pagadas = models.IntegerField()
-    estado = models.CharField(max_length = 10)
+    estado = models.CharField(max_length=3, choices= ESTADO)
     
     def __str__ (self):
         return '{} - ${} Cuotas: {}/{}' .format(self.cliente, self.importe, self.cuotas_pagadas, self.cuotas)

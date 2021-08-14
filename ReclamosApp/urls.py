@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth.decorators import login_required
 
 from ReclamosApp import views
 
 urlpatterns = [
-    path('reclamos/', views.reclamos, name="reclamos"),
-    path('seguimientoReclamos/', views.seguimientoReclamos, name="seguimientoReclamos"),
+    path('reclamos/', login_required(views.reclamos), name="reclamos"),
+    path('seguimientoReclamos/', login_required(views.seguimientoReclamos), name="seguimientoReclamos"),
 
     ]
 

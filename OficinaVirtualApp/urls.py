@@ -15,12 +15,10 @@ Including another URLconf
 """
 from django.urls import path
 from OficinaVirtualApp import views
-
+from django.contrib.auth.decorators import login_required
 urlpatterns = [
-    path('', views.inicio, name="Inicio"),
-    path('principal/', views.principal, name="Principal"),
-    path('datosPersonales/', views.datosPersonales, name="datosPersonales"),
-    path('registro/', views.registro, name="registro"),
-    
+    path('principal/', login_required(views.principal), name="principal"),
+    path('datosPersonales/', login_required(views.datosPersonales), name="datosPersonales"),
+    path('registro/', login_required(views.registro), name="registro"),    
     ]
 

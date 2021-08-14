@@ -5,7 +5,7 @@ class Boton_Pago(models.Model):
     suministro = models.ForeignKey(Suministro, on_delete= models.CASCADE)
     fecha_emision = models.DateField()
     fecha_vencimiento = models.DateField()
-    importe = models.CharField(max_length = 10)
+    importe = models.FloatField()
     fecha_pago = models.DateField()
     medio_pago = models.CharField(max_length = 10)
     estado = models.CharField(max_length = 10)
@@ -16,7 +16,7 @@ class Pagos (models.Model):
     suministro = models.IntegerField()
     factura = models.CharField(max_length = 20)
     fecha_pago = models.DateField()
-    importe = models.CharField(max_length = 20)
+    importe = models.FloatField()
     medio_pago = models.CharField(max_length = 20)
     operacion = models.IntegerField()
   

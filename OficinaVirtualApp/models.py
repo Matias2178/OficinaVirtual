@@ -15,10 +15,6 @@ class Cliente (models.Model):
     barrio = models.CharField(max_length=20)
     email = models.EmailField()
     factura = models.BooleanField(default=False)
-    password = models.CharField(max_length=20)
-    intentos = models.IntegerField()
-    caducidad = models.DateField()
-    avisos = models.IntegerField(default= 0)
     
     def __str__(self):
         return '{} {}'.format(self.apellido, self.nombre)
@@ -61,12 +57,7 @@ class Suministro (models.Model):
     def __str__(self):
          return '{} - {} - {} {}'.format(self.suministro, self.cliente, self.calle, self.numero)
 
-
-    
-    
-    
-    
-   
+ 
 class Turno (models.Model):
     apellido = models.CharField(max_length = 20)
     nombre = models.CharField(max_length =20)

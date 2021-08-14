@@ -6,9 +6,9 @@ class Factura (models.Model):
     suministro = models.ForeignKey(Suministro, on_delete= models.CASCADE)
     detalle_documento = models.CharField(max_length = 20)
     vencimiento_pri = models.DateField()
-    importe_pri = models.CharField(max_length = 10)
+    importe_pri = models.FloatField()
     vencimiento_seg = models.DateField()
-    importe_seg = models.CharField(max_length = 20)
+    importe_seg = models.FloatField()
     documento = models.BinaryField()
     
     def __str__(self):

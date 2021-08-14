@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.urls import path
 from PagosApp import views
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('botonPago/', views.botonPago, name="botonPago"),
-    path('debitoAutomatico/', views.debitoAutomatico, name="debitoAutomatico"),
-    path('bajaDebitoAutomatico/', views.bajaDebitoAutomatico, name="bajaDebitoAutomatico"),
+    path('botonPago/', login_required(views.botonPago), name="botonPago"),
+    path('debitoAutomatico/', login_required(views.debitoAutomatico), name="debitoAutomatico"),
+    path('bajaDebitoAutomatico/', login_required(views.bajaDebitoAutomatico), name="bajaDebitoAutomatico"),
     ]
 

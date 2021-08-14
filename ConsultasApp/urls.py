@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.urls import path
 from ConsultasApp import views
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('factura/', views.consultaFacturas, name="consultafacturas"),
-    path('consumo/', views.consultaConsumos, name="consultaconsumo"),
+    path('factura/', login_required(views.consultaFacturas), name="consultafacturas"),
+    path('consumo/', login_required(views.consultaConsumos), name="consultaconsumo"),
     ]

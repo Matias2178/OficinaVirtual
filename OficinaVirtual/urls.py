@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('OficinaVirtualApp.urls')),
     path('', include('PagosApp.urls')),
     path('', include('ReclamosApp.urls')),
+    path('', include('UsuarioApp.urls')),
     ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

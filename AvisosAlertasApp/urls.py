@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.urls import path
 from AvisosAlertasApp import views
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('avisos/', views.avisos, name="avisos"),
-    path('alertas/<int:cliente_id>/', views.alertas, name="alertas"),
+    path('avisos/', login_required(views.avisos), name="avisos"),
+    path('alertas/<int:cliente_id>/', login_required(views.alertas), name="alertas"),
     ]
 

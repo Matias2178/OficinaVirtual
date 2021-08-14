@@ -16,9 +16,10 @@ Including another URLconf
 
 from django.urls import path
 from LiquidacionConveniosApp import views
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('liquidacionDeuda/', views.liquidacionDeuda, name="liquidacionDeuda"),
-    path('convenioPago/', views.convenioPago, name="convenioPago"),
+    path('liquidacionDeuda/', login_required(views.liquidacionDeuda), name="liquidacionDeuda"),
+    path('convenioPago/', login_required(views.convenioPago), name="convenioPago"),
     ]
 

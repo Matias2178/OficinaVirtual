@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +44,8 @@ INSTALLED_APPS = [
     'OficinaVirtualApp',
     'PagosApp',
     'ReclamosApp',
+    'UsuarioApp',
+
 
 ]
 
@@ -133,6 +136,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+LOGIN_REDIRECT_URL = reverse_lazy('principal')
+LOGOUT_REDIRECT_URL = reverse_lazy('index')
 
 
 # Default primary key field type
@@ -140,11 +145,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#EMAIL_USE_TLS = True
-#EMAIL_HOST = 'smtp.gmail.com'
-#EMAIL_PORT = 25
-#EMAIL_HOST_USER = 'matiasm@mail.com'
-#EMAIL_HOST_PASSWORD = 'pasword'
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'avisos.oficina.virtual@gmail.com'
+EMAIL_HOST_PASSWORD = 'Martes78'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 

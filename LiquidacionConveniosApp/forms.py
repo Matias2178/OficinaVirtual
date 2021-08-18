@@ -12,9 +12,10 @@ class SuministroForm(forms.ModelForm):
             "Suministro": "suministro"
         }
         #y si le sacamos eso???
-        #widgets={
-        #    "suministro": forms.Select(attrs={'class':'form-control'})
-        #}
+        widgets={
+            "suministro": forms.Select(attrs={'class':'form-control',
+                                              })
+        }
 
 
 class DeudaForm (forms.ModelForm):

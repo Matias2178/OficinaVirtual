@@ -5,7 +5,8 @@
 
 <div class='container'>
     <div class ='row'>
-    <h4> Liquidacion de Deuda / Convenio de Pago</h4><hr>
+        <h4> Liquidacion de Deuda / Convenio de Pago</h4><hr>
+        <h5>{{usuario}}</h5>
     </div>
     <div class = 'row'>
         <div class = "col-8">
@@ -13,22 +14,24 @@
             <form method="post" enctype="multipart/form-data">
                  {% csrf_token %}
                  {{ form.suministro}}<br>
-                <button type="submit" class="btn btn-outline-primary" >Seleccionar</button>
-             </form>
-             {{request.POST}}
-            <p>hola {{medidor.id}}</p>
+                <button type="submit" class="btn btn-outline-primary" name="sel_suministro">Seleccionar</button>
+            </form>
+             
         </div>
     </div>
     <div class ='row'>
+
         <div class = 'col-6'> 
         <br>
-            <h6>Importe total a abonar: </h6> 
-            <h5>$1.245,23</h5> 
+            <h6>Importe total a abonar: </h6><hr>
+            <h5>${{deuda}}</h5> 
         </div>
         <div class ='col-6'>
         <br>
-             <button type="button" class="btn btn-outline-primary" >Liquidar y Pagar</button>
-             <button type="button" class="btn btn-outline-primary" >Generar Convenio</button>
+        <form method="post" enctype="multipart/form-data">
+             <button type="submit" class="btn btn-outline-primary" name="liquidar" >Liquidar y Pagar</button>
+             <button type="submit" class="btn btn-outline-primary" name="convenio">Generar Convenio</button>
+        </form>
         </div>
     </div>
 

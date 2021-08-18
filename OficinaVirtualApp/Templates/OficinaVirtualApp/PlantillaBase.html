@@ -12,6 +12,8 @@
     <link href={% static 'OficinaVirtualApp/css/PlantillaBase.css' %}  rel="stylesheet">
     <title>Oficina Virtual</title>
   </head>
+
+
   <body style="background-color: #dff7aa;">
     <!-- Header -->
     <nav id="header" class="navbar navbar-expand-lg navbar-dark ">
@@ -25,30 +27,30 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                      data-bs-toggle="dropdown" aria-expanded="false" >
                     Autogestión
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarAutogestion">
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarAutogestion">
                       <li><a class="dropdown-item" href={% url 'liquidacionDeuda' %}>Liquidación Deuda</a></li>
                       <li><a class="dropdown-item" href={% url 'convenioPago' %}>Convenio Pago</a></li><hr>
                       <li><a class="dropdown-item" href={% url 'botonPago' %}>Pagar - Boton Pago</a></li><hr>
                       <li><a class="dropdown-item" href={% url 'debitoAutomatico' %}>Debito automatico</a></li>
                       <li><a class="dropdown-item" href={% url 'bajaDebitoAutomatico' %}>Baja Debito Automatico</a></li>
                   </ul>
-              </li>
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                      data-bs-toggle="dropdown" aria-expanded="false">
                     Consultas
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarConsulta">
-                      <li><a class="dropdown-item" href={% url 'consultafacturas' %}>Facturas</a></li>
-                      <li><a class="dropdown-item" href={% url 'consultaconsumo' %}>Consumos</a></li>
-                  </ul>
-              </li>
-              <li class="nav-item dropdown">
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarConsulta">
+                <li><a class="dropdown-item" href={% url 'consultafacturas' %}>Facturas</a></li>
+                <li><a class="dropdown-item" href={% url 'consultaconsumo' %}>Consumos</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                      data-bs-toggle="dropdown" aria-expanded="false">
                     Reclamos
@@ -65,7 +67,7 @@
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href={% url 'avisos' %}>Avisos</a></li>
-               
+                    <li><a class="dropdown-item" href={% url 'alertas' %}>Alertas</a></li>
                   </ul>
               </li>
               <li class="nav-item">
@@ -101,19 +103,39 @@
             </div>
         </div>
     </footer>
-  <style>
-    .dropdown-menu{
-      background-color: #dff7aa; 
-    }
-    #header {
-      /*position: fixed;*/
-      top: 0;
-      width: 100%;
-      padding: 15px 20px;
-      background-color: #00853E
-      font-size: 15px;
+<style>
+  .dropdown-menu{
+    background-color: #dff7aa; 
+  }#header {
+    /*position: fixed;*/
+    top: 0;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #00853E
+    font-size: 15px;
       
 }
-  </style>
+  button[type=submit]{
+    position: relative;
+    left: 80%;
+    top: 50%
+    width: 100px;
+    border-style: solid;
+    border-color: #00853E;
+    background: transparent;
+    color: black;
+    padding: 10px;
+    margin: 10px;
+  }
+  button[type=submit]:hover{
+    background-color: #00853E;
+    border-color: white;
+    color: white;
+    outline: none;
+  }
+  button[type=submit]:active{
+ 
+  }
+</style>    
   </body>
 </html>

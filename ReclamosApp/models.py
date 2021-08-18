@@ -1,5 +1,6 @@
 from django.db import models
 from OficinaVirtualApp.models import Cliente, Suministro
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Reclamos (models.Model):

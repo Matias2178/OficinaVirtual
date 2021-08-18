@@ -12,8 +12,6 @@ def reclamos(request):
         formulario = ReclamosForm(data=request.POST)
         if formulario.is_valid():
             formulario.save()
-
-            
             return render(request,"ReclamosApp/seguimientoReclamos.html")
             
         return redirect('/reclamos/?valido')

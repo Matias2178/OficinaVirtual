@@ -1,10 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 #Creacion de todas las tablas necesarias para la base de datos
 
 class Cliente (models.Model):
-
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null= True)
     apellido = models.CharField(max_length=30)
     nombre = models.CharField(max_length=40)
     dni = models.IntegerField()
@@ -43,7 +44,7 @@ class Suministro (models.Model):
         ('DES', 'Desconectado'),
     ]
         
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, blank=True, null= True)
+    cliente = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null= True)
     suministro = models.IntegerField()
     calle = models.CharField(max_length=30)
     numero = models.IntegerField()
@@ -67,12 +68,3 @@ class Turno (models.Model):
     
     def __str__(self):
         return self.turno, self.apellido, self.nombre, self.motivo, self.estado
-    
-
-
-
-     
-
-        
-    
-    

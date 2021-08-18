@@ -23,13 +23,11 @@
     <div class = 'col=6'>
       <h4> Ultimos Consumos Registrados</h4><hr>
       <label for= "selSuministro">Suministro:</label><br>
-      <select class="form-select-sm" id="selSuministro" aria-label=".form-select-sm" type= "text"><br><br>
-        {% for sum in suministros %}
-          <option value={{forloop.counter}}>{{sum}}</option>
-        {% empty %}
-          <option selected>No hay suministro Asociado</option>
-        {% endfor %}
-      </select>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+         {{ consumos.suministro}}<br>
+        <button type="submit" class="btn btn-outline-primary" >Seleccionar</button>
+      </form>
     </div>
   </div>
   <div class ='row'>

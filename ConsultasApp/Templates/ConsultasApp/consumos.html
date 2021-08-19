@@ -1,28 +1,11 @@
 {% extends  "OficinaVirtualApp/PlantillaBase.html" %}
 {% block trabajo %}
-      <style>
-        table {
-          font-family: arial, sans-serif;
-          border-collapse: collapse;
-          width: 80%;
-          }
-        td, th {
-          border: 1px solid #cee59d;
-          text-align: left;
-          padding: 8px;
-          }
-        tr:nth-child(even) {
-          background-color: #CEE59D;
-          }
-        select{
-            background-color: #CEE59D;
-        }
-      </style>
+
 <div class='container'>
   <div class ='row'>
-    <div class = 'col=6'>
+    <div class = 'col-md-8'>
       <h4> Ultimos Consumos Registrados</h4><hr>
-      <label for= "selSuministro">Suministro:</label><br>
+      <p>Suministro:</p>
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
          {{ consumos.suministro}}<br>
@@ -31,7 +14,7 @@
     </div>
   </div>
   <div class ='row'>
-    <div class = 'col=6'>
+    <div class = 'col-md-8'>
       <table>
         <tr>
           <th></th>
@@ -39,10 +22,10 @@
           <th>Consumo</th>
         </tr>
         <tr>
-          {% for consumo in consumos  %}
+          {% for dato in datos  %}
             <td>{{forloop.counter}}</td>
-            <td>{{consumo.periodo }}</td>
-            <td>{{consumo.consumo}} Kw</td>
+            <td>{{dato.periodo }}</td>
+            <td>{{dato.consumo}} Kw</td>
           </tr>
           
           {% endfor %}

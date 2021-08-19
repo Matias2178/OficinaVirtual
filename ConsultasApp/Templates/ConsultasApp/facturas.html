@@ -1,58 +1,43 @@
 {% extends  "OficinaVirtualApp/PlantillaBase.html" %}
 {% block trabajo %}
 
-<style>
-        table {
-          font-family: arial, sans-serif;
-          border-collapse: collapse;
-          width: 80%;
-          }
-        td, th {
-          border: 1px solid #cee59d;
-          text-align: left;
-          padding: 8px;
-          }
-        tr:nth-child(even) {
-          background-color: #CEE59D;
-          }
-        select{
-            background-color: #CEE59D;
-        }
-</style>
 <div class='container'>
   <div class ='row'>
-    <h4> Consulta Facturas</h4><hr>
-    <label for= "selSuministro">Suministro:</label><br>
-    <select class="form-select-sm" id="selSuministro" aria-label=".form-select-sm" type= "text"><br><br>
-      {% for sum in suministros %}
-        <option value={{forloop.counter}}>{{sum}}</option>
-      {% empty %}
-        <option selected>No hay suministro Asociado</option>
-      {% endfor %}
-      </select>
+    <div class = 'col'>
+      <h4> Consulta Facturas</h4><hr>
+      <p>Suministro:</p>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+         {{ facturas.suministro}}<br>
+        <button type="submit" class="btn btn-outline-primary" >Seleccionar</button>
+      </form>
+    </div>
   </div>
   <div class ='row'>
-    <div class = 'col=6'>
+    <div class = 'col'>
       <table>
         <tr>
-          <th width='30%'>Detalle Documento</th>
-          <th width='20%'>Primer Vencimiento</th>
-          <th width='12%'>Importe</th>
-          <th width='30%'>Segundo Vencimiento </th>
-          <th width='12%'>Importe</th>
-          <th width='10%'>Archivo</th>
+          <th></th>
+          <th>Detalle</th>
+          <th>Vencimiento</th>
+          <th>Importe</th>
+          <th>Vencimiento</th>
+          <th>Importe</th>
+         
         </tr>
-        {% for factura in facturas  %}
-          <tr>
-            <td>{{factura.detalle_documento}}</td>
-            <td>{{factura.vencimiento_pri }}</td>
-            <td>${{factura.importe_pri}}</td>
-            <td>{{factura.vencimiento_seg }}</td>
-            <td>${{factura.importe_seg}}</td>
-            <td></td>
+        <tr>
+          {% for factura in datos  %}
+            <td>{{forloop.counter}}</td>
+            <td>{{factura.detalle_documento }}</td>
+            <td>{{factura.vencimiento_pri}}</td>
+            <td>$ {{factura.importe_pri}}</td>
+            <td>{{factura.vencimiento_seg}}</td>
+            <td>$ {{factura.importe_seg}}</td>
+
           </tr>
-          {% endfor %}    
+          {% endfor %}
       </table><br><br>
+      
     </div>
   </div>
 </div>

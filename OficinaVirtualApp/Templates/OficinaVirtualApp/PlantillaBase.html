@@ -119,7 +119,7 @@
     position: relative;
     left: 80%;
     top: 50%
-    width: 100px;
+    width: 150px;
     border-style: solid;
     border-color: #00853E;
     background: transparent;
@@ -153,6 +153,46 @@
     border-color: #00853E;
     background: transparent;
   }
+  input[type=text], input[type=password], input[type=email] {
+  position: relative;
+  left: 50%;
+  top: 50%
+  width: 50%;
+  height:35px;
+  padding: 10px;
+  margin: 10px 10px 
+  border: none;
+  border-bottom: 1px solid #00853E;;
+  background: transparent;
+  color: #00853E;
+  font-size:15px;
+  margin: 5px 5px;
+  text-align: center;
+}
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
+  background-color: transparent;
+  color: #00853E;
+  outline: none;
+}
+label{
+  position: relative;
+  left: 50%;
+  top: 50%
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+}
+td, th {
+  border: 1px solid #cee59d;
+  text-align: left;
+  padding: 8px;
+ }
+tr:nth-child(even) {
+  background-color: #CEE59D;
+}
+
 </style>    
   </body>
 </html>

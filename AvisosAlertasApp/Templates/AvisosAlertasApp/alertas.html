@@ -27,7 +27,10 @@
                     </tbody>
                 </table>
             {% endif %}
-            <button type="submit" class="btn btn-outline-primary" name="convenio" style="width: 100px;">Aceptar</button>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-primary" name="convenio" style="width: 100px;">Aceptar</button>
+            </form>
         </div>
     </div>
 {% endblock %}

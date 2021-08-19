@@ -1,25 +1,30 @@
 {% extends  "OficinaVirtualApp/PlantillaBase.html" %}
 {% block trabajo %}
     {% load static %}
-  <main class="container">
-    <div class="row mb-2">
+  <main >
+    <div class="row">
       <h4> Avisos</h4><hr>
     </div>
-    {% for aviso in avisos %}
-      <div>
-        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-          <div class="col p-4 d-flex flex-column position-static">
-            <h3> {{ aviso.titulo }} </h3>
-            <div class="mb-1 text-muted">{{ aviso.publicacion }} </div>
-              <p>{{ aviso.cuerpo }} </p>
+    <div class="container">
+      <div class= "row">
+        {% for aviso in avisos %}
+          <div class="col-4">
+            <div class="card" style="">
+              <img class="card-img-top" src="{{aviso.imagen.url}}">
+              <div class="card-body">
+                <div class="card-img-overlay">
+                <div class="content" >
+
+                  </h3 class="card-title"> {{ aviso.titulo }} </h3><br>
+                  </div>
+                </div>
+                <h7 class="mb-1 text-muted" style="font-size: 12px;">{{ aviso.publicacion }} </h7>
+                <p class="card-text">{{ aviso.cuerpo }} </p>
+              </div>
+            </div>
           </div>
-          <div class="col-auto d-none d-lg-block" align="right">
-            <figure>
-              <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{{aviso.imagen.url}}" alt="" style="width: 150%;">
-            </figure>
-          </div>
-        </div>
+        {% endfor %}
       </div>
-    {% endfor %}
- </main>
+    </div>
+  </main>
 {% endblock %}

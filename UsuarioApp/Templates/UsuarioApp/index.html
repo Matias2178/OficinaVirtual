@@ -4,36 +4,22 @@
 <form method="post">
 	{% csrf_token %}
 	<div class="row">
-    	<div class="col-6">
+    	<div class="col-md-6">
 			<h4>Registro de Ingreso</h4>
 		</div>
 	</div>
  	<div class="row">
-    	<div class="col-6">
+    	<div class="col-md-6">
     		<div class="form-group">
         		<label for="username">Nombre de usuario:</label>
-        		<input class="form-control" type="text" name="username" style="margin: 5px">
-    	   </div>
-        </div>
-    </div>    
-    <div class="row">
-    	<div class="col-6">
-    		<div class="form-group">
+        		<input class="form-control" type="text" name="username"  >
         		<label for="username">Contraseña:</label>
-        		<input class="form-control" type="password" name="password" style="margin: 5px">
-    	   </div>
-        </div>
-    </div>
-    <div class="row">
-    	<div class="col-6">
-    		<div class="form-group">
+        		<input class="form-control" type="password" name="password">
 				<input class="btn btn-primary" type="submit" value="Ingresar" ><br>
-				<div class= "enlaces" style="text-align:center">
-					<a href={% url 'password_reset' %} class="Utxt2" type="reset" >Olvidé mi contraseña</a>&nbsp&nbsp&nbsp&nbsp&nbsp
-					<a href={% url 'registrar' %} class="Utxt2" type="reset" >Registrarme</a>
-				</div>
-        		
-    	   </div>
+
+				<a href={% url 'password_reset' %} class="Utxt2" type="reset" >Olvidé mi contraseña</a>&nbsp&nbsp&nbsp&nbsp&nbsp
+				<a href={% url 'registrar' %} class="Utxt2" type="register" >Registrarme</a>	
+    	   	</div>
         </div>
     </div>
 </form>

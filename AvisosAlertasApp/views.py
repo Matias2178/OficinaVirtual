@@ -5,12 +5,12 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 def avisos(request):
-    avisos =  Aviso.objects.all()
+    avisos =  Aviso.objects.all().order_by('-id')
     return render(request, "AvisosAlertasApp/avisos.html", {"avisos": avisos} )
 
 def alertas(request):
     cliente = request.user.id
-    alertas = Alerta.objects.filter(cliente = cliente)
+    alertas = Alerta.objects.filter(cliente = cliente).order_by('-id')
     Alerta.objects.filter(cliente = cliente, estado = "EMI").update(estado = "VIS")
     if request.method == "POST":
         print("Aceptado")

@@ -11,10 +11,8 @@ class SuministroForm(forms.ModelForm):
         label = {
             "Suministro": "suministro"
         }
-        #y si le sacamos eso???
         widgets={
-            "suministro": forms.Select(attrs={'class':'form-control',
-                                              })
+            "suministro": forms.Select(attrs={'class':'form-control',})
         }
 
 
@@ -26,7 +24,6 @@ class DeudaForm (forms.ModelForm):
             "documento",
             "vencimiento",
             "importe",
-         #  "factura",
             "estado",
         ]
         label = {
@@ -34,7 +31,6 @@ class DeudaForm (forms.ModelForm):
             "Documento":  "documento",
             "Vencimiento": "vencimiento",
             "Importe": "importe",
-           # "Factura": "factura",
             "Estado": "estado",
         }
         widgets = {
@@ -42,7 +38,6 @@ class DeudaForm (forms.ModelForm):
             "documento" : forms.TextInput(attrs={'class':'form-control'}),
             "vencimiento" : forms.TextInput(attrs={'class':'form-control'}),
             "importe" : forms.TextInput(attrs={'class':'form-control'}),
-           # "factura",
             "estado" : forms.TextInput(attrs={'class':'form-control'}),
             
         }

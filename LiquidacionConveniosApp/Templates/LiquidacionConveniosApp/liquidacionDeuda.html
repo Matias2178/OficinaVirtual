@@ -9,8 +9,8 @@
         <h5>{{usuario}}</h5>
     </div>
     <div class = 'row'>
-        <div class = "col-8">
-            Suministro:<br>
+        <div class = "col-md-8">
+            <p>Suministro:</p><br>
             <form method="post" enctype="multipart/form-data">
                  {% csrf_token %}
                  {{ form.suministro}}<br>

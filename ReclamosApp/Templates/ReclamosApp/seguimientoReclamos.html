@@ -1,81 +1,56 @@
 {% extends  "OficinaVirtualApp/PlantillaBase.html" %}
 {% block trabajo %}
-<style>
-                    table {
-                        font-family: arial, sans-serif;
-                        border-collapse: collapse;
-                        width: 100%;
-                    }
-
-                    td, th {
-                        border: 1px solid #cee59d;
-                        text-align: left;
-                        padding: 8px;
-                    }
-
-                    tr:nth-child(even) {
-                        background-color: #CEE59D;
-                    }
-                    select{
-                        background-color: #CEE59D;
-                    }
-                </style>
-    <div class='container'>
-        <div class ='row'>
-            <h4> Consulta Estado de Reclamos</h4><hr>
-        </div>
-        <div class = 'row'>
-            <div class = "col-8">
-                Suministro:<br>
-                <select class="form-select form-select-sm" id= "selSuministro" >
-                    <option selected>006091194 Pj 42/44 San Martin (Reconquista)</option>
-                    <option value="1">Seleccionar Suminisro</option>
-                    <option value="2">0006091194 Pj 42/44 San Martin (Reconquista)</option>
-                </select><br>
-
-                Solicitud:<br>
-                <select class="form-select form-select-sm" id= "selSuministro" >
-                    <option selected>90088305 Consulta Planes de Pago. 19-05-2021</option>
-                    <option value="1">Seleccionar Solicitud</option>
-                    <option value="2">90088305 Consulta Planes de Pago. 19-05-2021</option>
-                </select><br>
-                
-
-                <table>
-                <tr></tr>
-                    <tr>
-                        <th>Fecha Solicitud:</th>
-                        <td>21/07/2021</td>
-                    </tr>
-                    <tr>
-                        <th>Tipo de Reclamo:</th>
-                        <td>Sin servicio</td>
-                    </tr>
-                    <tr>
-                        <th>Detalle Solicitud:</th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th><h6>Tratamiento del Reclamo</h6></th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>Fecha ultima Novedad:</th>
-                        <td>22/07/2021</td>
-                    </tr>
-                    <tr>
-                        <th>Observaciones:</th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>Estado:</th>
-                        <td>Pendiente</td>
-                    </tr>
-                </table><br><br>
-            
-
-                
-            </div>
-        </div>
+<div class='container'>
+    <div class ='row'>
+        <h4> Consulta Estado de Reclamos</h4><hr>
     </div>
+    <div class = 'row' >
+        <div class = "col-8">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <p>Suministro:</p>
+                {{ formulario.suministro }}
+                <p>Solicitud:</p>
+
+                        <select class="form-select form-select-sm" id= "selSuministro" >
+                            <option selected>90088305 Consulta Planes de Pago. 19-05-2021</option>
+                            <option value="1">Seleccionar Solicitud</option>
+                            <option value="2">90088305 Consulta Planes de Pago. 19-05-2021</option>
+                        </select><br>
+                        
+
+                        <table>
+                        <tr></tr>
+                            <tr>
+                                <th>Fecha Solicitud:</th>
+                                <td>21/07/2021</td>
+                            </tr>
+                            <tr>
+                                <th>Tipo de Reclamo:</th>
+                                <td>Sin servicio</td>
+                            </tr>
+                            <tr>
+                                <th>Detalle Solicitud:</th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th><h6>Tratamiento del Reclamo</h6></th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Fecha ultima Novedad:</th>
+                                <td>22/07/2021</td>
+                            </tr>
+                            <tr>
+                                <th>Observaciones:</th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Estado:</th>
+                                <td>Pendiente</td>
+                            </tr>
+                        </table><br><br>
+                    </div>
+                </div>
+            </div>
 {% endblock %}

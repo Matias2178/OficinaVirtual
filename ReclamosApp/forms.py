@@ -20,7 +20,7 @@ class ReclamosForm(forms.ModelForm):
         ]
         labels = {
             "Suministro" : "suministro",
-            "Reclamo" : "tipo_reclao", 
+            "Reclamo" : "tipo_reclamo", 
             "Detalle" : "detalle",
             #"Imagen 1": "imagen1",
             #"Imagen 2": "imagen2"
@@ -33,5 +33,26 @@ class ReclamosForm(forms.ModelForm):
             #"imagen2": forms.FileField(attrs={'class':'form-control'}),
             
         }
-    
-    
+        
+class SeguimientoFrom(forms.ModelForm):
+    class Meta:
+        model = Seguimiento
+        fields = [
+            "reclamo",
+            "fecha_novedad",
+            "area",
+            "observaciones",
+            "estado",
+        ]
+        labels = {
+            "Reclamo": "reclamo",
+            "Ultima Acutalización": "fecha_novedad",
+            "Area": "area",
+            "Observaciones": "observaciones",
+            "Estado": "estado",
+        }
+        widget = {
+            "reclamo" : forms.Select(attrs={'class':'form-control'}),
+        }
+        
+           

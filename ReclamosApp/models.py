@@ -30,8 +30,24 @@ class Reclamos (models.Model):
         return '{} - {}'.format(self.suministro, self.tipo_reclamo)
 
 class Seguimiento (models.Model):
-    reclamo = models.ForeignKey(Reclamos, on_delete = models.CASCADE, blank=True, null=True )
-    fecha_novedad = models.DateTimeField(blank = True)
-    area = models.CharField(max_length=10)
+    AREA = [
+        ('REC', 'Recepcion'),
+        ('AMD', 'Administracion'),
+        ('TEC', 'Area Tecnica'),
+        ('FAC', 'Facturacion'),
+    ]
+    
+    ESTADO = [
+        ('REC', 'Recibido'),
+        ('PRS', 'En Proceso'),
+        ('FIN', 'Finalizado'),
+    ]
+    
+    reclamo = models.ForeignKey(Reclamos, on_delete = models.CASCADE)
+    fecha_novedad = models.DateTimeField()
+    area = models.CharField(max_length=3, choices= AREA)
     observaciones = models.TextField()
-    estado = models.CharField(max_length=10)
+    estado = models.CharField(max_length=3, choices= ESTADO)
+    
+    def __str__(self):
+        return '{} - {} - {}'.format(self.reclamo, self.fecha_novedad, self.estado)

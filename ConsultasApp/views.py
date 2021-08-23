@@ -2,7 +2,6 @@ from django.shortcuts import render, HttpResponse
 from ConsultasApp.models import Consumo, Factura
 from OficinaVirtualApp.models import Suministro 
 from ConsultasApp.forms import ConsumoForm, FacturaForm
-#from OficinaVirtualApp.forms i
 
 
 
@@ -26,6 +25,7 @@ def consultaFacturas(request):
 
 def consultaConsumos(request):
     consumo = ConsumoForm(request.POST)
+    print(consumo)
     medidor = consumo.data.get("suministro")
     datos_consumo = Consumo.objects.filter(suministro = medidor)
     lista={
@@ -36,9 +36,6 @@ def consultaConsumos(request):
         medidor = consumo.data.get("suministro")
         datos_consumo = Consumo.objects.filter(suministro = medidor)
         print(datos_consumo.get("suministro"))
-
-  
-    return render(request, "ConsultasApp/consumos.html", lista) 
+        return render(request, "ConsultasApp/consumos.html", lista) 
     
-
-
+    return render(request, "ConsultasApp/consumos.html",lista)

@@ -1,5 +1,6 @@
 from django import forms
 from ConsultasApp.models import Consumo, Factura
+from OficinaVirtualApp.models import Suministro
 
 class ConsumoForm (forms.ModelForm):
     class Meta:
@@ -15,9 +16,14 @@ class ConsumoForm (forms.ModelForm):
             "Consumo": "consumo",
         }
         widgets ={
-            "suministro": forms.Select(attrs={'class':'form-control',}),
+            "suministro": forms.Select(attrs={'class':'form-control'}),
         }
+    #def ___init___(self, suministros, *args, **kwargs):
+    #    self.suministro = suministros
+    #    super(ConsumoForm, self).__init__(*args, **kwargs)
+        
 
+    
 class FacturaForm(forms.ModelForm):
     class Meta:
         model = Factura
@@ -38,5 +44,7 @@ class FacturaForm(forms.ModelForm):
             "Seg_importe": "importe_seg",
         }
         widgets ={
-            "suministro": forms.Select(attrs={'class':'form-control',}),
+            "suministro": forms.Select(attrs={'class':'form-control', 'type': 'seleccion'}),
         }
+    
+        

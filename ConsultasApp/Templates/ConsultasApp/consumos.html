@@ -5,11 +5,15 @@
   <div class ='row'>
     <div class = 'col-md-8'>
       <h4> Ultimos Consumos Registrados</h4><hr>
+    </div>
+  </div>
+  <div class ='row'>
+    <div class = 'col-md-8'>
       <p>Suministro:</p>
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-         {{ consumos.suministro}}<br>
-        <button type="submit" class="btn btn-outline-primary" >Seleccionar</button>
+        {{ consumos.suministro}}<br>
+        <button type="submit" class="btn btn-outline-primary" name = "suministro">Seleccionar</button>
       </form>
     </div>
   </div>
@@ -22,13 +26,18 @@
           <th>Consumo</th>
         </tr>
         <tr>
-          {% for dato in datos  %}
-            <td>{{forloop.counter}}</td>
-            <td>{{dato.periodo }}</td>
-            <td>{{dato.consumo}} Kw</td>
-          </tr>
-          
-          {% endfor %}
+        {% for dato in datos  %}
+          <td>{{forloop.counter}}</td>
+          <td>{{dato.periodo}}</td>
+          <td>{{dato.consumo}}</td>
+        {% empty %}
+          <td></td>
+          <td>No se registran consumos</td>
+          <td></td>
+        {% endfor %}
+        </tr>
+
+
       </table><br><br>
     </div>
   </div>

@@ -23,13 +23,18 @@
                     {% for convenio in convenios %}
                         <tr>                      
                             <td>{{convenio.fecha_generacion}}</td>
-                            <td>{{convenio.importe}}</td>
+                            <td>$ {{convenio.importe}}</td>
                             <td>{{convenio.cuotas}}</td>
-                            <td>{{convenio.importe_cuota}}</td>
+                            <td>$ {{convenio.importe_cuota}}</td>
                             <td>{{convenio.prox_vencimiento}}</td>
                             <td>{{convenio.cuotas_pagadas}}</td>
-                            <td>{{convenio.estado}}</td>
-
+                            <td>{{convenio.get_estado_display}}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            
+                            <td>No se registran convenios de pago activos</td>
+                            
                         </tr>
                     {% endfor %}
                 </tbody>

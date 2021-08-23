@@ -1,5 +1,6 @@
 from django.db import models
-from OficinaVirtualApp.models import Suministro, Cliente
+from OficinaVirtualApp.models import Suministro
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Deuda (models.Model):
@@ -34,7 +35,7 @@ class Convenio (models.Model):
         ("CAN", "Deuda Candelada"),
         ("DAN", "Deuda Anulada"),
     ]
-    cliente = models.ForeignKey(Cliente, on_delete= models.CASCADE)
+    cliente = models.ForeignKey(User, on_delete= models.CASCADE)
     fecha_generacion = models.DateField()
     importe = models.FloatField()
     cuotas = models.IntegerField()

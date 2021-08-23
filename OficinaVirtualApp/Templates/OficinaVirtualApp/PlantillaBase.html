@@ -73,7 +73,7 @@
               <li class="nav-item">
                 <a class="nav-link" href={% url 'datosPersonales' %}>Datos Personales</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" style="float:right">
                   <a class="nav-link" href='/'>Cerrar Sesión</a>
               </li>
           </ul>
@@ -98,23 +98,31 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col" style="text-align:center">
-                    <p style="color:#FFFFFF";> Oficina Virtual - Cooperativa de Servicios Públicos</p>
+                    <p style="color:#FFFFFF; padding: 10px, 20px, ";> Oficina Virtual - Cooperativa de Servicios Públicos</p>
                 </div>
             </div>
         </div>
     </footer>
+
 <style>
   .dropdown-menu{
     background-color: #dff7aa; 
-  }#header {
-    /*position: fixed;*/
-    top: 0;
-    width: 100%;
-    padding: 15px 20px;
-    background-color: #00853E
-    font-size: 15px;
-      
-}
+    }#header {
+      /*position: fixed;*/
+      top: 0;
+      width: 100%;
+      padding: 15px 20px;
+      background-color: #00853E
+      font-size: 15px;
+    
+  }
+  li .nav-item {
+    float: left;
+  }
+  li a:active {
+    color: #FFFFFF;
+  }
+
   button[type=submit]{
     position: relative;
     left: 80%;

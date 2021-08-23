@@ -39,6 +39,7 @@ def liquidacionDeuda(request):
         return render(request, "LiquidacionConveniosApp/liquidacionDeuda.html",info)
 
 def convenioPago(request):
-    convenio = Convenio.objects.all() 
+    cliente = request.user.id
+    convenio = Convenio.objects.filter(cliente = cliente).order_by('-id')
 
     return render(request, "LiquidacionConveniosApp/convenioPago.html", {"convenios": convenio})

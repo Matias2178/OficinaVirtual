@@ -146,6 +146,13 @@
     width: 100%;
     padding: 12px;
   }
+  .cont_botones {
+    margin: 0;
+    position: relative
+    bottom: 0%;
+    left: 50%;
+
+  }
   .card{
     width: 100%; 
     margin: 5px 5px;
@@ -160,9 +167,9 @@
   width: 50%;
   height:35px;
   padding: 10px;
-  margin: 10px 10px 
+  margin: 10px 10px; 
   border: none;
-  border-bottom: 1px solid #00853E;;
+  border-bottom: 1px solid #00853E;
   background: transparent;
   color: #00853E;
   font-size:15px;
@@ -192,7 +199,39 @@ td, th {
 tr:nth-child(even) {
   background-color: #CEE59D;
 }
+select[id = id_suministro], [id = id_tipo_reclamo]{
+  background: transparent;
+  width: 75%;
+  border-style: solid;
+  border-color: #00853E;
+}
+select[id = id_suministro]:focus, [id = id_tipo_reclamo]:focus{
+  background: transparent;
+  border-style: solid;
+  border-color: #00853E;
+}
 
+textarea[id = id_detalle]{
+  background: transparent;
+  width: 75%;
+  border-style: solid;
+  border-color: #00853E;
+}
+textarea[id = id_detalle]:focus{
+  background: transparent;
+  width: 75%;
+  border-style: solid;
+  border-color: #00853E;
+}
+div[class = titulo] {
+  background-color:  #00853E;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  margin: 0px 0px 20px 0px;
+  font-size: 30px;
+  font-family: Ubuntu;
+}
 </style>    
   </body>
 </html>

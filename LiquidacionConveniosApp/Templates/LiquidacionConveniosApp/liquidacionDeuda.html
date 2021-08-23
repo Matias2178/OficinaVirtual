@@ -22,7 +22,7 @@
     <div class = "row">
         <div class = "col">
         <br>
-            <div class="alert alert-primary" role="alert" align="center" id = > Seleccione deuda a liquidar
+            <div class="titulo" role="alert" align="center" id = > Seleccione deuda a liquidar
             </div>
         <table class="table">
             <thead>
@@ -49,18 +49,22 @@
         </div>
     </div>
      <div class ='row'>
-
-        <div class = 'col-6'> 
-        <br>
-            <h6>Importe total a abonar: </h6><hr>
-            <h5>${{total}}</h5> 
-            <br>
-            <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-                <button type="submit" class="btn btn-outline-primary" name="liquidar" >Liquidar y Pagar</button>
-                <button type="submit" class="btn btn-outline-primary" name="convenio">Generar Convenio</button>
-            </form>
+        <div class = 'col-md-5'> 
+            <div clas= 'cont-info'
+                <b><h5 style= "font-family: Ubuntu;">Importe total a abonar: </h5></b><hr>
+                <h5>${{total}}</h5> <hr>
+            </div>
         </div>
+        <div class = 'col-md-4'> 
+            <div class = 'cont_botones'>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-primary" name="liquidar" >Liquidar y Pagar</button>
+                    <button type="submit" class="btn btn-outline-primary" name="convenio">Generar Convenio</button>
+                </form>
+            </div>
+        </div>
+
     </div>
 </div>
 <p style='font-size: 0.7rem; padding-left: 14px' ><b>ATENCI&Oacute;N: "GENERAR CONVENIO DE PAGO" PARA OBTENER BENEFICIOS DE TASAS DE INTERES (COVID-19).</b><br>

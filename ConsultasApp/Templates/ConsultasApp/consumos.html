@@ -13,7 +13,7 @@
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ consumos.suministro}}<br>
-        <button type="submit" class="btn btn-outline-primary" name = "suministro">Seleccionar</button>
+        <button type="submit" class="btn btn-outline-primary" >Seleccionar</button>
       </form>
     </div>
   </div>
@@ -22,22 +22,22 @@
       <table>
         <tr>
           <th></th>
-          <th>Preriodo</th>
+          <th>Medici&oacute;n</th>
           <th>Consumo</th>
         </tr>
-        <tr>
+        
         {% for dato in datos  %}
+        <tr>
           <td>{{forloop.counter}}</td>
           <td>{{dato.periodo}}</td>
-          <td>{{dato.consumo}}</td>
+          <td>{{dato.consumo}} Kw</td>
+        </tr>
         {% empty %}
           <td></td>
           <td>No se registran consumos</td>
           <td></td>
         {% endfor %}
-        </tr>
-
-
+        
       </table><br><br>
     </div>
   </div>

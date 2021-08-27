@@ -9,13 +9,18 @@ def consultaFacturas(request):
     facturas = FacturaForm(request.POST)
     medidor = facturas.data.get("suministro")
     lista_facturas = Factura.objects.filter(suministro = medidor)
-    #suministros = SuministroForm()
     lista ={"facturas": facturas,
             "datos": lista_facturas,
-            }
+    }
+    print("GET")   
+    print(medidor)
     if request.method == 'POST' and facturas.is_valid():
+        
         medidor = facturas.data.get("suministro")
         lista_facturas = Factura.objects.filter(suministro = medidor)
+        print("POST")   
+        print(medidor)
+        print(facturas)
         lista = {
                 "facturas": facturas,
                 "datos": lista_facturas,
@@ -23,19 +28,22 @@ def consultaFacturas(request):
         
     return render(request, "ConsultasApp/facturas.html", lista)
 
-def consultaConsumos(request):
+def consultaConsumos(request):   
     consumo = ConsumoForm(request.POST)
-    print(consumo)
     medidor = consumo.data.get("suministro")
+    print("GET")
+    print(medidor)
     datos_consumo = Consumo.objects.filter(suministro = medidor)
+
     lista={
-            "consumos": consumo,
-            "datos": datos_consumo,
+        "consumos": consumo,
+        "datos": datos_consumo,
     }
-    if request.method == 'POST' and consumo.is_valid():
+    if request.method == 'POST' :
         medidor = consumo.data.get("suministro")
+        print("POST")   
+        print(medidor)
         datos_consumo = Consumo.objects.filter(suministro = medidor)
-        print(datos_consumo.get("suministro"))
         return render(request, "ConsultasApp/consumos.html", lista) 
     
     return render(request, "ConsultasApp/consumos.html",lista)

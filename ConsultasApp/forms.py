@@ -16,7 +16,7 @@ class ConsumoForm (forms.ModelForm):
             "Consumo": "consumo",
         }
         widgets ={
-            "suministro": forms.Select(attrs={'class':'form-control'}),
+            "suministro": forms.Select(attrs={'class':'form-control', 'type': 'seleccion'}),
         }
     #def ___init___(self, suministros, *args, **kwargs):
     #    self.suministro = suministros

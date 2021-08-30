@@ -1,8 +1,13 @@
+# -*- coding: utf-8 -*-
 from django import forms
 from ConsultasApp.models import Consumo, Factura
-from OficinaVirtualApp.models import Suministro
 
+    
 class ConsumoForm (forms.ModelForm):
+
+    medidores = forms.ChoiceField(
+        widget=forms.Select(attrs={'class':'form-control', 'type': 'seleccion'}))
+    
     class Meta:
         model = Consumo
         fields = [
@@ -25,6 +30,8 @@ class ConsumoForm (forms.ModelForm):
 
     
 class FacturaForm(forms.ModelForm):
+    medidores = forms.ChoiceField(
+        widget=forms.Select(attrs={'class':'form-control', 'type': 'seleccion'}))
     class Meta:
         model = Factura
         fields = [

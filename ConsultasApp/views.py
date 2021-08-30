@@ -1,26 +1,25 @@
 from django.shortcuts import render, HttpResponse
+
 from ConsultasApp.models import Consumo, Factura
 from OficinaVirtualApp.models import Suministro 
 from ConsultasApp.forms import ConsumoForm, FacturaForm
 
 
-
 def consultaFacturas(request):
     facturas = FacturaForm(request.POST)
-    medidor = facturas.data.get("suministro")
-    lista_facturas = Factura.objects.filter(suministro = medidor)
+    usuario = request.user.id
+    suministros = Suministro.objects.values_list("id", "suministro").filter(cliente = usuario) 
+    facturas.fields['medidores'].choices = suministros
+    
+    lista_facturas = ""
     lista ={"facturas": facturas,
             "datos": lista_facturas,
     }
-    print("GET")   
-    print(medidor)
+
     if request.method == 'POST' and facturas.is_valid():
         
-        medidor = facturas.data.get("suministro")
+        medidor = facturas.data.get("medidores")
         lista_facturas = Factura.objects.filter(suministro = medidor)
-        print("POST")   
-        print(medidor)
-        print(facturas)
         lista = {
                 "facturas": facturas,
                 "datos": lista_facturas,
@@ -28,19 +27,21 @@ def consultaFacturas(request):
         
     return render(request, "ConsultasApp/facturas.html", lista)
 
-def consultaConsumos(request):   
+def consultaConsumos(request):  
+    usuario = request.user.id
+    suministros = Suministro.objects.values_list("id", "suministro").filter(cliente = usuario) 
+    
     consumo = ConsumoForm(request.POST)
-    medidor = consumo.data.get("suministro")
-    print("GET")
-    print(medidor)
+    consumo.fields['medidores'].choices = suministros
+    
+    medidor = consumo.data.get("medidores")
     datos_consumo = Consumo.objects.filter(suministro = medidor)
-
     lista={
         "consumos": consumo,
         "datos": datos_consumo,
+       
     }
     if request.method == 'POST' :
-        medidor = consumo.data.get("suministro")
         print("POST")   
         print(medidor)
         datos_consumo = Consumo.objects.filter(suministro = medidor)

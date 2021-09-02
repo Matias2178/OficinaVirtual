@@ -7,12 +7,12 @@ __pycache__/*
 .vscode/*
 .idea/*
 media/*
-AvisosAlertasApp/migrations/
-ConsultasApp/migrations/
-LiquidacionConveniosApp/migrations/
-OficinaVirtualApp/migrations/
-PagosApp/migrations/
-ReclamosApp/migrations/
-UsuarioApp/migrations/
+AvisosAlertasApp/migrations/*.py
+ConsultasApp/migrations/*.py
+LiquidacionConveniosApp/migrations/*.py
+OficinaVirtualApp/migrations/*.py
+PagosApp/migrations/*.py
+ReclamosApp/migrations/*.py
+UsuarioApp/migrations/*.py
 
 

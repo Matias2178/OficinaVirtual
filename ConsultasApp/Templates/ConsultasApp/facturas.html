@@ -2,13 +2,16 @@
 {% block trabajo %}
 
 <div class='container'>
-  <div class ='row'>
-    <div class = 'col'>
+  <div class ='row' id = 'encabezado'>
+    
       <h4> Consulta Facturas</h4><hr>
+  </div>
+  <div class = 'row'>
+      <div class = 'col'>
       <p>Suministro:</p>
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-         {{ facturas.medidores}}<br>
+         {{ facturas.suministro}}<br>
         <button type="submit" class="btn btn-outline-primary" >Seleccionar</button>
       </form>
     </div>

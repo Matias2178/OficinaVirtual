@@ -3,7 +3,7 @@
 
 <div class='container'>
   <div class ='row'>
-    <div class = 'col-md-8'>
+    <div class = 'col-md-8'id = 'encabezado'>
       <h4> Ultimos Consumos Registrados</h4><hr>
     </div>
   </div>
@@ -12,7 +12,7 @@
       <p>Suministro:</p>
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{consumos.medidores}}<br> 
+        {{consumos.suministro}}<br> 
         <button type="submit" class="btn btn-outline-primary" >Seleccionar</button>
       </form>
     </div>

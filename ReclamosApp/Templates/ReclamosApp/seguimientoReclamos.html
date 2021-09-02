@@ -1,56 +1,67 @@
 {% extends  "OficinaVirtualApp/PlantillaBase.html" %}
 {% block trabajo %}
+
 <div class='container'>
-    <div class ='row'>
+    <div class ='row' id = 'encabezado'>
         <h4> Consulta Estado de Reclamos</h4><hr>
     </div>
     <div class = 'row' >
-        <div class = "col-8">
+        <div class = "col-8" >
+            <p>Suministro:</p>
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <p>Suministro:</p>
-                {{ formulario.suministro }}
-                <p>Solicitud:</p>
+                {{ reclamos.suministro }}<br>
+                <button type="submit" class="btn btn-outline-primary" name = "btn_suministro">Seleccionar</button>
 
-                        <select class="form-select form-select-sm" id= "selSuministro" >
-                            <option selected>90088305 Consulta Planes de Pago. 19-05-2021</option>
-                            <option value="1">Seleccionar Solicitud</option>
-                            <option value="2">90088305 Consulta Planes de Pago. 19-05-2021</option>
-                        </select><br>
-                        
+                <p>Reclamo:</p>
+                {{ seguimiento.lista_reclamos }}<br>
+                <button type="submit" class="btn btn-outline-primary" name = "btn_reclamo">Seleccionar</button><br>
+                <p>Fecha ultima Novedad:</p>
+                    <p>{{estado_reclamo.fecha_novedad}}</p>
+            </form>
+        </div>
+    </div>
+    <div class = 'row' style = "margin: 0px 0px 30px 0px;">
+        <div class = 'col-md-8'>
+            <table>
+                <tr>
+                    <th>Fecha Solicitud:</th>
+                    <td>Poner la fecha del reclamo</td>
+                </tr>
+                <tr>
+                    <th>Detalle:</th>
+                    <td>{{suministro.detalle}}</td>
+                </tr>
+                <tr>
+                    <th>Detalle Solicitud:</th>
+                    <td></td>
+                </tr>
+                <tr>
+            </table>
+            <div class = "tituloSec" >                
 
-                        <table>
-                        <tr></tr>
-                            <tr>
-                                <th>Fecha Solicitud:</th>
-                                <td>21/07/2021</td>
-                            </tr>
-                            <tr>
-                                <th>Tipo de Reclamo:</th>
-                                <td>Sin servicio</td>
-                            </tr>
-                            <tr>
-                                <th>Detalle Solicitud:</th>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <th><h6>Tratamiento del Reclamo</h6></th>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <th>Fecha ultima Novedad:</th>
-                                <td>22/07/2021</td>
-                            </tr>
-                            <tr>
-                                <th>Observaciones:</th>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <th>Estado:</th>
-                                <td>Pendiente</td>
-                            </tr>
-                        </table><br><br>
-                    </div>
-                </div>
+                <h3>Tratamiento del Reclamo</h3></th>
             </div>
+            <table>
+                <tr>
+                    <th>Fecha &Uacute;ltima Novedad:</th>
+                    <td>{{estado_reclamo.fecha_novedad}}</td>
+                </tr>
+                <tr>
+                    <th>Area:</th>
+                    <td>{{estado_reclamo.area}}</td>
+                </tr>
+                <tr>
+                    <th>Observaciones:</th>
+                    <td>{{estado_reclamo.observaciones}}</td>
+                </tr>
+                <tr>
+                    <th>Estado:</th>
+                    <td>{{estado_reclamo.estado}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
 {% endblock %}

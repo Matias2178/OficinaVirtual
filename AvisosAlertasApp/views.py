@@ -18,3 +18,4 @@ def alertas(request):
         return render(request, "AvisosAlertasApp/alertas.html", {"alertas": alertas})
         
     return render(request, "AvisosAlertasApp/alertas.html", {"alertas": alertas})
+

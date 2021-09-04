@@ -17,11 +17,11 @@
                     <tbody>
                         {% for alerta in alertas %}
                             <tr>
-                                <td>{{ alerta.fecha }}</td><br>
-                                <td>{{ alerta.get_origen_display }}</td><br>
-                                <td>{{ alerta.get_motivo_display }}</td><br>
-                                <td>{{ alerta.mensaje }}</td><br>
-                                <td>{{ alerta.get_estado_display }}</td><br>
+                                <td>{{ alerta.fecha }}</td>
+                                <td>{{ alerta.get_origen_display }}</td>
+                                <td>{{ alerta.get_motivo_display }}</td>
+                                <td>{{ alerta.mensaje }}</td>
+                                <td>{{ alerta.get_estado_display }}</td>
                             </tr> 
                         {% endfor %}               
                     </tbody>

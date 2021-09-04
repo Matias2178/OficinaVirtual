@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 #Creacion de todas las tablas necesarias para la base de datos
 
 class Cliente (models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null= True)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     calle = models.CharField(max_length=30)
     numero = models.IntegerField()
     piso = models.IntegerField(blank=True, null=True) #para que no sea un capmo requerido

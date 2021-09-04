@@ -3,65 +3,59 @@
 
 <div class='container'>
     <div class ='row' id = 'encabezado'>
-        <h4> Consulta Estado de Reclamos</h4><hr>
+        <h4> Estado de Reclamos</h4><hr>
     </div>
     <div class = 'row' >
         <div class = "col-8" >
             <p>Suministro:</p>
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ reclamos.suministro }}<br>
+                {{ reclamos.suministro }}
                 <button type="submit" class="btn btn-outline-primary" name = "btn_suministro">Seleccionar</button>
-
                 <p>Reclamo:</p>
-                {{ seguimiento.lista_reclamos }}<br>
+                {{ seguimiento.lista_reclamos }}
                 <button type="submit" class="btn btn-outline-primary" name = "btn_reclamo">Seleccionar</button><br>
-                <p>Fecha ultima Novedad:</p>
-                    <p>{{estado_reclamo.fecha_novedad}}</p>
+                {{el_reclamo.as_p}}
+                {{seg_sel.as_p}}
+                {{error.as_p}}
+                
             </form>
         </div>
     </div>
     <div class = 'row' style = "margin: 0px 0px 30px 0px;">
         <div class = 'col-md-8'>
+            {{js.as_p}}
             <table>
                 <tr>
                     <th>Fecha Solicitud:</th>
-                    <td>Poner la fecha del reclamo</td>
+                    <td>{{el_reclamo.alta}}</td>
                 </tr>
                 <tr>
                     <th>Detalle:</th>
-                    <td>{{suministro.detalle}}</td>
+                    <td>{{el_reclamo.detalle}}</td>
                 </tr>
-                <tr>
-                    <th>Detalle Solicitud:</th>
-                    <td></td>
-                </tr>
-                <tr>
             </table>
             <div class = "tituloSec" >                
-
                 <h3>Tratamiento del Reclamo</h3></th>
             </div>
             <table>
                 <tr>
                     <th>Fecha &Uacute;ltima Novedad:</th>
-                    <td>{{estado_reclamo.fecha_novedad}}</td>
+                    <td>{{seguimiento_sel.fecha_novedad}}</td>
                 </tr>
                 <tr>
                     <th>Area:</th>
-                    <td>{{estado_reclamo.area}}</td>
+                    <td>{{seguimiento_sel.area}}</td>
                 </tr>
                 <tr>
                     <th>Observaciones:</th>
-                    <td>{{estado_reclamo.observaciones}}</td>
+                    <td>{{seguimiento_sel.observaciones}}</td>
                 </tr>
                 <tr>
                     <th>Estado:</th>
-                    <td>{{estado_reclamo.estado}}</td>
+                    <td>{{seguimiento_sel.estado}}</td>
                 </tr>
             </table>
         </div>
-    </div>
-
-</div>
+    </div> </div>
 {% endblock %}

@@ -36,13 +36,11 @@ class Seguimiento (models.Model):
         ('TEC', 'Area Tecnica'),
         ('FAC', 'Facturacion'),
     ]
-    
     ESTADO = [
         ('REC', 'Recibido'),
         ('PRS', 'En Proceso'),
         ('FIN', 'Finalizado'),
     ]
-    
     reclamo = models.ForeignKey(Reclamos, on_delete = models.CASCADE)
     fecha_novedad = models.DateTimeField()
     area = models.CharField(max_length=3, choices= AREA)

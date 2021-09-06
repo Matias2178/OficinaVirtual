@@ -38,7 +38,7 @@ class Suministro (models.Model):
         ('DES', 'Desconectado'),
     ]
         
-    cliente = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null= True)
+    cliente = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null= True)
     suministro = models.IntegerField()
     calle = models.CharField(max_length=30)
     numero = models.IntegerField()

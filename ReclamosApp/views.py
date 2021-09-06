@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from .forms import ReclamosForm, SeguimientoFrom
 from ReclamosApp.models import Seguimiento, Reclamos
 from OficinaVirtualApp.models import Suministro
-from datetime import datetime
+from datetime import datetime, timedelta
 
 def reclamos(request):
     usuario = request.user.id
@@ -18,8 +18,8 @@ def reclamos(request):
         formulario = ReclamosForm(data=request.POST)
         if formulario.is_valid():
             formulario.save()
-            rec = reclamo.objects.last()
-            id_rec = reclamo.objects.get(id=rec.id)
+            id_rec = reclamo.objects.last()
+            print(id_rec)
             seg = Seguimiento(reclamo = id_rec,
                               fecha_novedad = datetime.now(),
                               area = 'REC',
@@ -53,8 +53,10 @@ def seguimientoReclamos(request):
     medidor = reclamo.data.get('suministro')
     reclamos = Reclamos.objects.values_list("id", "tipo_reclamo").filter(suministro = medidor)
     seguimiento.fields['lista_reclamos'].choices = reclamos
-    #hoy = datetime.now()
-    # print("hoy es: ",hoy.isoweekday())
+    hoy = datetime.now()
+    print("hoy es: ",hoy.isoweekday())
+    vencimiento = hoy + timedelta(days=3)
+    print("Una Semana Mas", vencimiento.isoweekday())
     #print(datetime.today().strftime('%A'))
     js = "Esto es una prueba de como son las cosasa"
     

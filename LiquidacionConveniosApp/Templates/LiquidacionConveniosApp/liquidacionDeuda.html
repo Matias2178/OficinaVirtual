@@ -16,55 +16,47 @@
              
         </div>
     </div>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
     <div class = "row">
-        <div class = "col">
-        <br>
-            <div class="titulo" role="alert" align="center" id = > Seleccione deuda a liquidar
+        <div class = "col-md-8">
+            <div class="titulo" align="center"> Seleccione deuda a liquidar
             </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Documento</th>
-                    <th scope="col">Vencimiento</th>
-                    <th scope="col">Importe</th>
-                </tr>
-            </thead>
-            <tbody>
-                 {% for deuda in deudas %}
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>{{deuda.liquidar}}</td>
-                        <td>{{deuda.documento}}</td>
-                        <td>{{deuda.vencimiento}}</td>
-                        <td>{{deuda.importe}}</td>
+                        <th scope="col"></th>
+                        <th scope="col">Documento</th>
+                        <th scope="col">Vencimiento</th>
+                        <th scope="col">Importe</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        </div>
-    </div>
-     <div class ='row'>
-        <div class = 'col-md-5'> 
-            <div clas= 'cont-info'
-                <b><h5 style= "font-family: Ubuntu;">Importe total a abonar: </h5></b><hr>
-                <h5>${{total}}</h5> <hr>
-            </div>
-        </div>
-        <div class = 'col-md-4'> 
+                </thead>
+                <tbody>
+                    {% for deuda in deudas %}
+                        {% if deuda.estado == "PEN" %} <!-- Solo se imprimem deudas pendientes-->
+                        <tr>
+                            <td><input type="checkbox" value = {{deuda.id}} name="apagar"></td>
+                            <td>{{deuda.documento}}</td>
+                            <td>{{deuda.vencimiento}}</td>
+                            <td>{{deuda.importe}}</td>
+                        </tr>
+                        {% endif %}
+                    {% empty %}
+                        <td> No se registran items a abonar </td> 
+                    {% endfor %}
+                </tbody>
+            </table>
             <div class = 'cont_botones'>
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-outline-primary" name="liquidar" >Liquidar y Pagar</button>
-                    <button type="submit" class="btn btn-outline-primary" name="convenio">Generar Convenio</button>
-                </form>
+                <button type="submit" class="btn btn-outline-primary" name="liquidar" >Cupon de Pago</button>
+                <button type="submit" class="btn btn-outline-primary" name="convenio">Convenio</button>
             </div>
         </div>
-
+    </form>
     </div>
 </div>
 <p style='font-size: 0.7rem; padding-left: 14px' ><b>ATENCI&Oacute;N: "GENERAR CONVENIO DE PAGO" PARA OBTENER BENEFICIOS DE TASAS DE INTERES (COVID-19).</b><br>
         Salvo error u omisi&oacute;n (S.E.U.O.). No incluye deudas en: Concurso, Quiebra y/o Demanda Judicial. Los PAGOS realizados en Entidades Externas, se ver&aacute;n reflejados en las pr&oacute;ximas 24/48 hs. h&aacute;biles.<br>
-        <b>Si posee una suspensi&oacute;n en el servicio, por falta de pago, abone la liquidaci&oacute;n y con el comprobante de pago, dir&iacute;jase a la Oficina Comercial m&aacute;s pr&oacute;xima, para agilizar la restituci&oacute;n del Servicio el&eacute;ctrico</b><br>
+        <b>Si posee una suspensi&oacute;n en el servicio, por falta de pago, abone la liquidaci&oacute;n y con el comprobante de pago, dir&iacute;jase a la Oficina Comercial, para agilizar la restituci&oacute;n del Servicio el&eacute;ctrico</b><br>
 </p>
 
 

@@ -1,22 +1,10 @@
 from django import forms
 from LiquidacionConveniosApp.models import Deuda
-from OficinaVirtualApp.models import Suministro
-
-class SuministroForm(forms.ModelForm):
-    class Meta:
-        model = Suministro
-        fields =[
-            "suministro"
-        ]
-        label = {
-            "Suministro": "suministro"
-        }
-        widgets={
-            "suministro": forms.Select(attrs={'class':'form-control',})
-        }
 
 
 class DeudaForm (forms.ModelForm):
+    liquidar = forms.BooleanField(label="business", initial=False)
+    
     class Meta:
         model = Deuda
         fields = [
@@ -34,7 +22,7 @@ class DeudaForm (forms.ModelForm):
             "Estado": "estado",
         }
         widgets = {
-            "suministro" : forms.Select(attrs={'class':'form-control'}),
+            "suministro" : forms.Select(attrs={'class':'form-control', 'type': 'seleccion'}),
             "documento" : forms.TextInput(attrs={'class':'form-control'}),
             "vencimiento" : forms.TextInput(attrs={'class':'form-control'}),
             "importe" : forms.TextInput(attrs={'class':'form-control'}),

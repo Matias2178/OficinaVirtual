@@ -1,67 +1,119 @@
 {% extends  "OficinaVirtualApp/PlantillaBase.html" %}
 {% block trabajo %}
-
+<style>
+   input[type=text], input[type=password], input[type=email],input[type=number] {
+    position: relative;
+    left: 0%;
+    top: 0%
+    width: 50%;
+    height:35px;
+    padding: 10px;
+    margin: 10px 10px; 
+    border: none;
+    border-bottom: 1px solid #00853E;
+    background: transparent;
+    color: #00853E;
+    font-size:15px;
+    margin: 5px 5px;
+    text-align: left;
+  }
+  input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus{
+    background-color: transparent;
+    color: #00853E;
+    outline: none;
+  }
+  input[id = id_nombre], [id = id_numero_tarjeta]{
+    position: relative;
+    left: 0%;
+    top: 0%
+    border: none;
+    border-bottom: 1px solid #00853E;
+    background: transparent;
+    color: black;
+    width: 75%;
+    border-style: solid;
+    border-color: #00853E;
+  }
+  input[id = id_nombre]:focus, [id = id_numero_tarjeta]:focus{
+    position: relative;
+    left: 0%;
+    top: 0%
+    background: transparent;
+    border-style: solid;
+    border-color: #00853E;
+  }
+  
+</style>
 <div class='container'>
-    <div class ='row' id = 'encabezado'>
-        <h4> Adhesi&oacute;n Debito Automatico</h4><hr>
-    </div>
+  <div class ='row' id = 'encabezado'>
+    <h4> Adhesi&oacute;n Debito Automatico</h4><hr>
+  </div>
+  <div class ='row' >
+    {% if alerta == 1 %}
+      <h3 style = "color : #d3d302">{{mensaje}}</h3>
+    {% elif alerta == 2 %}
+      <h3 style = "color : red">{{mensaje}}</h3>
+    {% elif alerta == 3 %}
+      <h3 style = "color : blue">{{mensaje}}</h3>
+    {% endif %}
+    
+   
+  </div>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
     <div class = 'row'>
-      <div class = "col-8">
-        <label for= "selSuministro">Suministro:</label><br>
-            <select class="form-select-sm" id="selSuministro" aria-label=".form-select-sm" type= "text">
-                {% for liq in suministros %}
-                    <option value={{forloop.counter}}>{{liq}}</option>
-                {% empty %}
-                    <option selected>No hay suministro Asociado</option>
-                {% endfor %}
-             </select><br>
-        <label>Tarjeta:</label><br>
-        <select id="tarjeta" name="tarjeta" size="1" class="form-select-sm" type= "text">
-          {% for trj in tarjetas  %}
-            <option value={{forloop.counter}}type= "text">{{trj}}</option>
-          {% endfor %}          
-        </select><br>
-        
-        <label>Banco:</label><br>
-        <select id="banco" name="banco" size="1" class="form-select-sm" type= "text">  
-          {% for bco in bancos  %}
-            <option value={{forloop.counter}}>{{bco}}</option>
-          {% endfor %}        
-        </select><br>
-
-        <label>Nombre del titular de la tarjeta:</label><br>
-        <INPUT name="nombre" id="nombre" size="38" maxlength="60" value="" class="txt" type= "text"><br>
-
-        <label>Domicilio del titular de la tarjeta:</label><br>
-        <INPUT name="domiciliotitular" id="domiciliotitular" size="38" maxlength="60" value="" class="txt" type= "text"><br>
-        
-        <label>Número de tarjeta: (Ingrese todos los n&uacute;meros sin guiones ni espacios)</label><br>
-        <INPUT name="numero" id="numero" size="20" maxlength="16" value="" class="txt" type= "text"><br>
-        
-       
-         <label> Vencimiento de la tarjeta:</label><br>
-          
-          <select id="mes" name="mes" size="1" class="form-select-sm" type= "text">
-            {% for mm  in meses %}
-              <option value={{forloop.counter}} >{{mm}}</option> 
-            {% endfor %}
-                    
-          </select> 
-          <select id="anio" name="anio" size="1" class="form-select-sm" type= "text">
-            {% for fecha in aios %}
-              <option value={{forloop.counter}}> {{fecha}}</option>
-            {% endfor %}
-          </select><br><br>
-        
-
-        <button type="button" class="btn" id="boton" onclick="submit();"> Continuar </button><br><br>
-        <p style='font-size: 0.7rem; padding-left: 14px'>Estimado Usuario, a partir de la pr&oacute;xima facturaci&oacute;n, ser&aacute; aplicado el d&eacute;bito autom&aacute;tico.  Por favor, verificar su saldo en Liquidaci&oacute;n de deuda y p&aacute;guela a trav&eacute;s de los medios habilitados. Agradecemos su contacto.<br><br>
-        </p>
-        </form>
-    </section>
-        </div>
+      <div class = "col-md-8">
+        <p>Suministro:</p>
+        {{ deb_auto.suministro}}<br>
+      </div>
     </div>
-
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8">             
+        <p>Tarjeta:</p>
+        {{deb_auto.tarjeta}}<BR>
+      </div>
+    </div>
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8">     
+        <p>Banco:</p>
+        {{deb_auto.sel_banco}}<BR>
+      </div>
+    </div>
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8">   
+        <p>Nombre del titular de la tarjeta:</p>
+        {{deb_auto.nombre}}
+      </div>
+    </div>
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8"> 
+        <p>Número de tarjeta: (Ingrese todos los n&uacute;meros sin guiones ni espacios)</p>
+        {{deb_auto.numero_tarjeta}}<br>
+      </div>
+    </div>
+    <div class = 'row' id ="filas">   
+      <p> Vencimiento de la tarjeta:</p>
+      <div class = "col-md-4">
+        <p>Mes</p>
+        {{deb_auto.MM}}  
+      </div>
+      <div class = "col-md-4"> 
+        <p>Año</p>                                 
+        {{deb_auto.AA}}
+      </div>
+    </div>
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8" >   
+        <button type="submit" class="btn btn-outline-primary">Guardar</button>
+      </div>
+    </div>
+  </form>
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8"> 
+        <p style='font-size: 0.7rem; padding-left: 14px'>Estimado Usuario, a partir de la pr&oacute;xima facturaci&oacute;n, ser&aacute; aplicado el d&eacute;bito autom&aacute;tico.  Por favor, verificar su saldo en Liquidaci&oacute;n de deuda y p&aacute;guela a trav&eacute;s de los medios habilitados. <br><br>
+        </p>
+      </div>
+    </div> 
 </div>
 
 {% endblock %}

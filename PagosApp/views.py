@@ -2,46 +2,141 @@
 from django.shortcuts import render, HttpResponse
 from datetime import date
 from OficinaVirtualApp.models import Suministro
-from PagosApp.models import Debito_Automatico
+from PagosApp.models import Debito_Automatico, Cupon_Pago
+from PagosApp.forms import DebitoAutomaticoFrom, BajaDebitoAutomaticoFrom
 
-def botonPago(request):
-
-
-    return render(request, "PagosApp/botonPago.html")
+def cuponPago(request):
+    usuario = request.user.id
+    cupones = Cupon_Pago.objects.filter(cliente = usuario)
+    lista = {
+        "cupones" : cupones,
+    }
+    return render(request, "PagosApp/cuponPago.html", lista)
 
 def debitoAutomatico(request):
-    suministros = Suministro.objects.all() #cambiar a filtro
-    fecha = date.today()
-    anios = range(fecha.year, (fecha.year + 15))
+    mensaje = ""
+    alerta = 0
     
-    meses = ("Enero", "Febrero", "Marzo", "Abri", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre","Noviembre", "Diciembre")
+    MESES = [(1,"Enero"), (2,"Febrero"), (3,"Marzo"), (4,"Abril"), (5,"Mayo"), (6,"Junio"), (7,"Julio"), (8,"Agosto"), (9,"Septiembre"), (10,"Octubre"),(11,"Noviembre"), (12,"Diciembre")]
     
-    bancos = ( "NUEVO BANCO DE SANTA FE S.A." ,"BAN SUD","BANCO MACRO S.A.","BANCO SANTANDER RÍO S.A.",
-              "BBVA BANCO FRANCES S.A.","CITIBANK","BANCO DE LA NACIÓN ARGENTINA","BANCO PROV. DE BUENOS AIRES",
-              "ICBC - BANK CHINA","BANCO PROV. DE CÓRDOBA","BANCO SUPERVIELLE S.A.","BANCO CIUDAD DE BUENOS AIRES",
-              "BANCO PATAGONIA S.A.","BANCO HIPOTECARIO S.A.","BANCO DE SAN JUAN S.A.","BANCO TUCUMÁN S.A.",
-              "BANCO MUNICIPAL DE ROSARIO","BANCO DEL CHUBUT S.A.","BANCO DE SANTA CRUZ S.A.",
-              "BANCO DE LA PAMPA SOCIEDAD DE ECONOMÍA MIXT","BANCO DE CORRIENTES S.A.","BANCO PROVINCIA NEUQUÉN","HSBC BANK ARGENTINA S.A.","BANCO CREDICOOP COOP.LTDO.","BANCO ITAÚ ARGENTINA S.A.","BANCO PROV.DE TIERRA DEL FUEGO","BANCO REPÚBLICA O. DEL URUGUAY","BANCO COMAFI SOCIEDAD ANÓNIMA","BANCO RIOJA SOCIEDAD ANÓNIMA UNIPERSONAL","NUEVO BANCO DEL CHACO S.A.","BANCO DE FORMOSA S.A.", "BANCO DE SANTIAGO DEL ESTERO S.A.","NUEVO BANCO DE ENTRE RÍOS S.A.""BANCO BICA S.A.","DESCONOCIDO")
+    Bancos = [ "DESCONOCIDO","NUEVO BANCO DE SANTA FE S.A." ,"BANCO MACRO S.A.","BANCO SANTANDER RÍO S.A.","BBVA BANCO FRANCES S.A.","CITIBANK","BANCO DE LA NACIÓN ARGENTINA","BANCO PROV. DE BUENOS AIRES","ICBC - BANK CHINA","BANCO PROV. DE CÓRDOBA","BANCO SUPERVIELLE S.A.","BANCO CIUDAD DE BUENOS AIRES","BANCO PATAGONIA S.A.","BANCO HIPOTECARIO S.A.","HSBC BANK ARGENTINA S.A.","BANCO CREDICOOP COOP.LTDO.","BANCO COMAFI SOCIEDAD ANÓNIMA","NUEVO BANCO DEL CHACO S.A.","NUEVO BANCO DE ENTRE RÍOS S.A.","BANCO BICA S.A."]
     
-    tarjetas = ("VISA – TARJETA DE CRÉDITO", "MASTERCARD", "VISA – TARJETA DE DÉBITO", "CABAL")
+    BANCOS = []
+    val = 0
+    for i in Bancos:
+        BANCOS.append((val, i))
+        val = val+1
 
-    lista = {"aios": anios,
-             "meses": meses,
-             "bancos": bancos,
-             "tarjetas": tarjetas,
-             "suministros": suministros
-            }
-      
+    fecha = date.today()
+    ANIOS = []
+    for i in range(fecha.year, (fecha.year + 15)):
+        ANIOS.append((i, i))
     
+    usuario = request.user.id
+    suministros = Suministro.objects.values_list("id", "suministro").filter(cliente = usuario) 
+    # print(ANIOS)
+    # print(BANCOS)
+    hoy = date.today()
+    deb_auto = DebitoAutomaticoFrom(request.POST)
+    deb_auto.fields['suministro'].choices = suministros
+    deb_auto.fields['sel_banco'].choices = BANCOS
+    deb_auto.fields['MM'].choices = MESES
+    deb_auto.fields['AA'].choices = ANIOS
+    deb_auto.fields['MM'].default = hoy.month
+
+    if request.method == 'POST' :
+        aa = int (deb_auto.data.get('AA'))
+        mm = int (deb_auto.data.get('MM'))        
+        tjt_vencimiento = date(aa, mm, 1)
+
+        #control si la tarjeta de credito esta vencida
+        if not tjt_vencimiento > date.today():
+            mensaje = "Su tarjeta se encuentra vencida"
+            alerta = 1
+            
+        else:    
+            suministro = deb_auto.data.get('suministro')
+            debitos_activos = Debito_Automatico.objects.filter(suministro = suministro, estado = "ACT")
+           
+            if debitos_activos :
+                mensaje = "Ya se encunentra activo un debito automatico asociado a este suministro"  
+                alerta = 2 
+                deb_auto = DebitoAutomaticoFrom()
+                deb_auto.fields['suministro'].choices = suministros
+                deb_auto.fields['sel_banco'].choices = BANCOS
+                deb_auto.fields['MM'].choices = MESES
+                deb_auto.fields['AA'].choices = ANIOS
+                deb_auto.fields['MM'].default = hoy.month
+            else:
+                #si no puedo por las buenas lo hacemos por las malas
+                num = int(deb_auto.data.get("sel_banco")) 
+                id_suministro = Suministro.objects.filter(pk = suministro)
+                debitos = Debito_Automatico(
+                    suministro = id_suministro[0],
+                    tarjeta = deb_auto.data.get("tarjeta"),
+                    banco = Bancos[num],
+                    nombre = deb_auto.data.get("nombre"),
+                    numero_tarjeta = deb_auto.data.get("numero_tarjeta"),
+                    vencimiento = tjt_vencimiento,
+                    estado = "ACT"
+                )
+                debitos.save()
+                deb_auto = DebitoAutomaticoFrom()
+                deb_auto.fields['suministro'].choices = suministros
+                deb_auto.fields['sel_banco'].choices = BANCOS
+                deb_auto.fields['MM'].choices = MESES
+                deb_auto.fields['AA'].choices = ANIOS
+                deb_auto.fields['MM'].default = hoy.month
+                mensaje = "Debito automatico adherido correctamente"
+                alerta = 3
+                # deb_auto.fields['vencimiento'].initial = tjt_vencimiento    #cargo la fecha de vencimiento
+                # deb_auto.fields['estado'].initial = "ACT"                   #paso a activo el estado de la tarjeta
+                # deb_auto.fields['banco'].initial = deb_auto.data.get('sel_banco')
+                # if deb_auto.is_valid():
+                #     mensaje = "Todo bien??"
+                #     deb_auto.save()
+                # else:
+                #     mensaje = "la cagaste"
+                #     print("no se donde la cague")
+                #     print(deb_auto)
+                #     print(deb_auto.errors)
+            
+    lista = {
+        "deb_auto": deb_auto,
+        "mensaje": mensaje,
+        "alerta": alerta,
+        }   
     return render(request, "PagosApp/debitoAutomatico.html",lista)
 
 
 def bajaDebitoAutomatico(request):
-    suministros = Suministro.objects.all() #cambiar a filtro
-    debitos = Debito_Automatico.objects.all() #cambiar a filtro
+    baja = BajaDebitoAutomaticoFrom(request.POST)
+    usuario = request.user.id
     
-    dic = {"suministros": suministros,
-           "debitos": debitos
-           }
-    
+    suministros = Suministro.objects.values_list("id", "suministro").filter(cliente = usuario) 
+    print(suministros)
+
+    baja.fields['suministro'].choices = suministros
+    dic = {
+        "baja": baja,
+        # "debito": debito,
+    }
+    if request.method == "POST" :
+        if "btn_suministro" in request.POST:
+            medidor = baja.data.get("suministro")
+            debito = Debito_Automatico.objects.filter(suministro = medidor, estado = "ACT" )
+            dic = {
+                "baja": baja,
+                "debito": debito,
+            }
+        elif "btn_baja" in request.POST:
+            medidor = baja.data.get("suministro")
+            Debito_Automatico.objects.filter(suministro = medidor, estado = "ACT").update(estado = "CAN")
+            dic = {
+                "baja": baja,
+            }
+        
+        return render(request, "PagosApp/bajaDebitoAutomatico.html",dic)
+        
+      
     return render(request, "PagosApp/bajaDebitoAutomatico.html",dic)

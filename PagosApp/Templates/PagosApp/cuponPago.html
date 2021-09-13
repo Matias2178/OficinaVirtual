@@ -1,0 +1,54 @@
+{% extends  "OficinaVirtualApp/PlantillaBase.html" %}
+{% block trabajo %}
+<div class='container'>
+    <div class ='row'id = 'encabezado'>
+        <h4> Cupones Pendiente de P&aacute;go</h4><hr>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class = 'row'>
+      <div class = "col">
+        <table>
+          <tr>
+            <th >Pagar</th>
+            <th >Estado</th>
+            <th >Vencimiento</th>
+            <th >Importe</th>
+          </tr>
+      
+          {% for cupon in cupones  %}
+            <tr>
+              <td><input type="checkbox" value = {{cupon.id}} name="idcupon"> </td>
+              <td>{{cupon.get_estado_display}}</td>
+              <td>{{cupon.fecha_vencimiento}}</td>
+              <td>${{cupon.importe}}</td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td>No se registran cupones pendiente de pago</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+    <div class = 'row'>
+        <div class = "col">  
+          <div class="titulo" align="center">Medios de Pago</div>
+            <ul>
+              <li> <input type="radio"> Tarjeta de Credito</li>
+              <li> <input type="radio"> Pago Mis Cuentas</li>
+              <li> <input type="radio"> Tarjeta del super</li>
+            </ul>
+        </div>
+    </div>
+    <div class = 'cont_botones'>
+      <button type="submit" class="btn btn-outline-primary" name="liquidar" >  Pagar  </button>
+    </div>
+    </form>
+</div>
+
+
+{% endblock %}

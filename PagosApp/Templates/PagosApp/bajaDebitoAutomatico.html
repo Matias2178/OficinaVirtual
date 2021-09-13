@@ -4,27 +4,49 @@
     <div class ='row' id = 'encabezado'>
         <h4> Baja de Debito Automatico</h4><hr>
     </div>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
     <div class = 'row'>
         <div class = "col-8">
-          <label for= "selSuministro">Suministro:</label><br>
-            <select class="form-select-sm" id="selSuministro" aria-label=".form-select-sm" type= "text">
-                {% for sum in suministros %}
-                    <option value={{forloop.counter}}>{{sum}}</option>
-                {% empty %}
-                    <option selected>No hay suministro Asociado</option>
+            <p>Suministro:</p>
+            {{baja.suministro}}
+            <button type="submit" class="btn btn-outline-primary" name = "btn_suministro">Seleccionar</button>
+        </div>
+    </div>
+    <div class = 'row'>
+        <div class = 'col-md-8'>
+            <div class="titulo" align="center">
+                <h3>Debito Automatico</h3></th>
+            </div>
+            <table>
+                {% for deb in debito  %}
+                    <tr>
+                        <th>Tarjeta</th>
+                        <td>{{deb.get_tarjeta_display}}</td>
+                    </tr>
+                    <tr>
+                        <th> Numero</th>
+                        <td>{{deb.numero_tarjeta}}</td>
+                    </tr>
+                    <tr>
+                        <th>Vencimiento</th>
+                        <td>{{deb.vencimiento}}
+                    </tr>
+                    <tr>
+                        <th>Banco</th>
+                        <td>{{deb.banco}}</td>
+                    </tr>
+                    <tr>
+                        <th>Titular</th>
+                        <td>{{deb.nombre}}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha Alta</th>
+                        <td> {{deb.alta}}
+                    </tr>
                 {% endfor %}
-            </select><br>
-        <label for= "debitoAuto">Debito Automatico:</label><br>
-            <select class="form-select-sm" id="debitoAuto" aria-label=".form-select-sm" type= "text">
-                {% for deb in debitos %}
-                    <option value={{forloop.counter}}>{{deb}}</option>
-                {% empty %}
-                    <option selected>No existe debito automatico asociado</option>
-                {% endfor %}
-            </select><br><br>
-
-        <button type="button" class="btn btn-outline-primary" id="boton" onclick="submit();" > Continuar </button>
-        <br><br>
+            </table>
+             <button type="submit" class="btn btn-outline-primary" name = "btn_baja">Baja</button>
         </div>
     </div>
 </div>

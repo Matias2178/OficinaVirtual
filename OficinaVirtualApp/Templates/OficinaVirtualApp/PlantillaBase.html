@@ -12,7 +12,179 @@
     <link href={% static 'OficinaVirtualApp/css/PlantillaBase.css' %}  rel="stylesheet">
     <title>Oficina Virtual</title>
   </head>
+<style>
+  .dropdown-menu{
+    background-color: #dff7aa; 
+    }#header {
+      /*position: fixed;*/
+      top: 0;
+      width: 100%;
+      padding: 15px 20px;
+      background-color: #00853E
+      font-size: 15px;
+    
+  }
+  li .nav-item {
+    float: left;
+  }
+  li a:active {
+    color: #FFFFFF;
+  }
 
+  button[type=submit]{
+    position: relative;
+    left: 80%;
+    top: 50%
+    width: 150px;
+    border-style: solid;
+    border-color: #00853E;
+    background: transparent;
+    color: black;
+    padding: 10px;
+    margin: 10px;
+    width: 125px;
+  }
+  button[type=submit]:hover{
+    background-color: #00853E;
+    border-color: white;
+    color: white;
+    outline: none;
+    width: 125px;
+  }
+  button[type=submit]:active{
+    width: 125px;
+  }
+  .content{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    background: rgb(0, 0, 0); /* Fallback color */
+    background: rgba(0, 0, 0, 0.4); /* Black background with 0.5 opacity */
+    color: #f1f1f1;
+    width: 100%;
+    padding: 12px;
+  }
+  .cont_botones {
+    margin: 0;
+    position: relative
+    bottom: 0%;
+    left: 50%;
+
+  }
+  .card{
+    width: 100%; 
+    margin: 5px 5px;
+    border-style: solid;
+    border-color: #00853E;
+    background: transparent;
+  }
+  input[type=text], input[type=password], input[type=email],input[type=number] {
+  position: relative;
+  left: 50%;
+  top: 50%
+  width: 50%;
+  height:35px;
+  padding: 10px;
+  margin: 10px 10px; 
+  border: none;
+  border-bottom: 1px solid #00853E;
+  background: transparent;
+  color: #00853E;
+  font-size:15px;
+  margin: 5px 5px;
+  text-align: center;
+}
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus{
+  background-color: transparent;
+  color: #00853E;
+  outline: none;
+}
+input[id = id_nombre], [id = id_numero_tarjeta]{
+  position: relative;
+  left: 0%;
+  top: 0%
+  border: none;
+  border-bottom: 1px solid #00853E;
+  background: transparent;
+  width: 75%;
+  border-style: solid;
+  border-color: #00853E;
+}
+input[id = id_nombre]:focus, [id = id_numero_tarjeta]:focus{
+  position: relative;
+  left: 0%;
+  top: 0%
+  background: transparent;
+  border-style: solid;
+  border-color: #00853E;
+}
+label{
+  position: relative;
+  left: 50%;
+  top: 50%
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+}
+td, th {
+  border: 1px solid #cee59d;
+  text-align: left;
+  padding: 8px;
+ }
+tr:nth-child(even) {
+  background-color: #CEE59D;
+}
+select[id = id_suministro], [id = id_lista_reclamos] , [id = id_reclamo], [id = id_tipo_reclamo], [id = id_tarjeta], [id = id_sel_banco], [id = id_MM], [id = id_AA]{
+  background: transparent;
+  width: 75%;
+  border-style: solid;
+  border-color: #00853E;
+}
+select[id = id_suministro ]:focus, [id = id_lista_reclamos]:focus, [id = id_reclamo]:focus, [id = id_tipo_reclamo]:focus,  [id = id_tarjeta]:focus, [id = id_sel_banco]:focus, [id = id_mes]:focus, [id = id_anio]:focus{
+  background: transparent;
+  border-style: solid;
+  border-color: #00853E;
+}
+
+textarea[id = id_detalle]{
+  background: transparent;
+  width: 75%;
+  border-style: solid;
+  border-color: #00853E;
+}
+textarea[id = id_detalle]:focus{
+  background: transparent;
+  width: 75%;
+  border-style: solid;
+  border-color: #00853E;
+}
+div[class = titulo] {
+  background-color:  #00853E;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  margin: 20px 0px 20px 0px;
+  font-size: 30px;
+  font-family: Ubuntu;
+}
+div[class = tituloSec] {
+  background-color:  #a1b27b;
+  color: black;
+  padding: 5px;
+  text-align: center;
+  margin: 30px 10px 20px 0px;
+  font-size: 30px;
+  font-family: Ubuntu;
+}
+div[id = encabezado]{
+  margin: 30px 0px 10px 0px;
+}
+div[id = filas]{
+  margin: 00px 0px 20px 0px;
+}
+</style>   
 
   <body style="background-color: #dff7aa;">
     <!-- Header -->
@@ -35,7 +207,7 @@
               <ul class="dropdown-menu" aria-labelledby="navbarAutogestion">
                       <li><a class="dropdown-item" href={% url 'liquidacionDeuda' %}>Liquidación Deuda</a></li>
                       <li><a class="dropdown-item" href={% url 'convenioPago' %}>Convenio Pago</a></li><hr>
-                      <li><a class="dropdown-item" href={% url 'botonPago' %}>Pagar - Boton Pago</a></li><hr>
+                      <li><a class="dropdown-item" href={% url 'cuponPago' %}>Cup&oacute;n Pago</a></li><hr>
                       <li><a class="dropdown-item" href={% url 'debitoAutomatico' %}>Debito automatico</a></li>
                       <li><a class="dropdown-item" href={% url 'bajaDebitoAutomatico' %}>Baja Debito Automatico</a></li>
                   </ul>
@@ -102,156 +274,6 @@
                 </div>
             </div>
         </div>
-    </footer>
-
-<style>
-  .dropdown-menu{
-    background-color: #dff7aa; 
-    }#header {
-      /*position: fixed;*/
-      top: 0;
-      width: 100%;
-      padding: 15px 20px;
-      background-color: #00853E
-      font-size: 15px;
-    
-  }
-  li .nav-item {
-    float: left;
-  }
-  li a:active {
-    color: #FFFFFF;
-  }
-
-  button[type=submit]{
-    position: relative;
-    left: 80%;
-    top: 50%
-    width: 150px;
-    border-style: solid;
-    border-color: #00853E;
-    background: transparent;
-    color: black;
-    padding: 10px;
-    margin: 10px;
-  }
-  button[type=submit]:hover{
-    background-color: #00853E;
-    border-color: white;
-    color: white;
-    outline: none;
-  }
-  button[type=submit]:active{
- 
-  }
-  .content{
-    position: absolute;
-    top: 0%;
-    left: 0%;
-    background: rgb(0, 0, 0); /* Fallback color */
-    background: rgba(0, 0, 0, 0.4); /* Black background with 0.5 opacity */
-    color: #f1f1f1;
-    width: 100%;
-    padding: 12px;
-  }
-  .cont_botones {
-    margin: 0;
-    position: relative
-    bottom: 0%;
-    left: 50%;
-
-  }
-  .card{
-    width: 100%; 
-    margin: 5px 5px;
-    border-style: solid;
-    border-color: #00853E;
-    background: transparent;
-  }
-  input[type=text], input[type=password], input[type=email] {
-  position: relative;
-  left: 50%;
-  top: 50%
-  width: 50%;
-  height:35px;
-  padding: 10px;
-  margin: 10px 10px; 
-  border: none;
-  border-bottom: 1px solid #00853E;
-  background: transparent;
-  color: #00853E;
-  font-size:15px;
-  margin: 5px 5px;
-  text-align: center;
-}
-input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
-  background-color: transparent;
-  color: #00853E;
-  outline: none;
-}
-label{
-  position: relative;
-  left: 50%;
-  top: 50%
-}
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 80%;
-}
-td, th {
-  border: 1px solid #cee59d;
-  text-align: left;
-  padding: 8px;
- }
-tr:nth-child(even) {
-  background-color: #CEE59D;
-}
-select[id = id_suministro], [id = id_lista_reclamos] , [id = id_reclamo]{
-  background: transparent;
-  width: 75%;
-  border-style: solid;
-  border-color: #00853E;
-}
-select[id = id_suministro ]:focus, [id = id_lista_reclamos]:focus, [id = id_reclamo]:focus{
-  background: transparent;
-  border-style: solid;
-  border-color: #00853E;
-}
-
-textarea[id = id_detalle]{
-  background: transparent;
-  width: 75%;
-  border-style: solid;
-  border-color: #00853E;
-}
-textarea[id = id_detalle]:focus{
-  background: transparent;
-  width: 75%;
-  border-style: solid;
-  border-color: #00853E;
-}
-div[class = titulo] {
-  background-color:  #00853E;
-  color: white;
-  padding: 5px;
-  text-align: center;
-  margin: 20px 0px 20px 0px;
-  font-size: 30px;
-  font-family: Ubuntu;
-}
-div[class = tituloSec] {
-  background-color:  #a1b27b;
-  color: black;
-  padding: 5px;
-  text-align: center;
-  margin: 30px 10px 20px 0px;
-  font-size: 30px;
-  font-family: Ubuntu;
-}
-div[id = encabezado]{
-  margin: 30px 0px 10px 0px;
-}
-</style>    
+    </footer> 
   </body>
 </html>

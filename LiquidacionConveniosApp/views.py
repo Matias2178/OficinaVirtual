@@ -90,12 +90,6 @@ def liquidacionDeuda(request):
             }
             
             return redirect("/convenios.html", planes )
-        
-            
-        
-        
-        
-        
         return render(request, "LiquidacionConveniosApp/liquidacionDeuda.html",info) #cambiar la vista
         
     else:

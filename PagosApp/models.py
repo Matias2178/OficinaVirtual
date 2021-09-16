@@ -54,6 +54,9 @@ class Debito_Automatico(models.Model):
     alta = models.DateTimeField(auto_now_add = True)
     baja = models.DateTimeField(blank=True, null= True)
     estado = models.CharField(max_length=3, choices= ESTADO)
+    
+    def __str__(self):
+        return '({}) - {} - {} - {} - {} ({})' .format(self.pk, self.suministro, self.tarjeta, self.banco, self.vencimiento, self.estado)
 
     
     

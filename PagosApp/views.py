@@ -4,6 +4,8 @@ from datetime import date
 from OficinaVirtualApp.models import Suministro
 from PagosApp.models import Debito_Automatico, Cupon_Pago
 from PagosApp.forms import DebitoAutomaticoFrom, BajaDebitoAutomaticoFrom
+from AvisosAlertasApp.funciones import CargarAviso
+from PagosApp.funciones import ControlFecha
 
 def cuponPago(request):
     usuario = request.user.id
@@ -100,6 +102,7 @@ def debitoAutomatico(request):
                 #     print("no se donde la cague")
                 #     print(deb_auto)
                 #     print(deb_auto.errors)
+                
             
     lista = {
         "deb_auto": deb_auto,
@@ -114,7 +117,6 @@ def bajaDebitoAutomatico(request):
     usuario = request.user.id
     
     suministros = Suministro.objects.values_list("id", "suministro").filter(cliente = usuario) 
-    print(suministros)
 
     baja.fields['suministro'].choices = suministros
     dic = {
@@ -125,6 +127,8 @@ def bajaDebitoAutomatico(request):
         if "btn_suministro" in request.POST:
             medidor = baja.data.get("suministro")
             debito = Debito_Automatico.objects.filter(suministro = medidor, estado = "ACT" )
+            cliente1 = request.user
+            ControlFecha(medidor, cliente1)
             dic = {
                 "baja": baja,
                 "debito": debito,
@@ -135,7 +139,10 @@ def bajaDebitoAutomatico(request):
             dic = {
                 "baja": baja,
             }
-        
+            datos_medidor = Suministro.objects.values_list("suministro", "calle", "numero", "barrio").filter(id = medidor)[0]            
+            Mensaje = "Cancelacion del debito automatico del suministro: ({}) - {} No.: {} - Barrio:{}".format(datos_medidor[0], datos_medidor[1], datos_medidor[2], datos_medidor[3])
+            CargarAviso(cliente1, "PAU", "BDA", Mensaje)
+            
         return render(request, "PagosApp/bajaDebitoAutomatico.html",dic)
         
       

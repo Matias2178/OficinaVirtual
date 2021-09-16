@@ -18,6 +18,8 @@ class Alerta (models.Model):
         ("CDS", "Corte de Servicio"),
         ("PPV", "Plan de Pagos Vencido"),
         ("PDA", "Pago Debito Automatico"),
+        ("BDA", "Baja Debito Automatico"),
+        ("DAV", "Debito Automatico Vencido")
     ]
     ESTADO = [
         ("EMI", "Emitido"),

@@ -15,24 +15,19 @@
                 <p>Reclamo:</p>
                 {{ seguimiento.lista_reclamos }}
                 <button type="submit" class="btn btn-outline-primary" name = "btn_reclamo">Seleccionar</button><br>
-                {{el_reclamo.as_p}}
-                {{seg_sel.as_p}}
-                {{error.as_p}}
-                
             </form>
         </div>
     </div>
     <div class = 'row' style = "margin: 0px 0px 30px 0px;">
         <div class = 'col-md-8'>
-            {{js.as_p}}
             <table>
                 <tr>
                     <th>Fecha Solicitud:</th>
-                    <td>{{el_reclamo.alta}}</td>
+                    <td>{{datos_reclamo.alta}}</td>
                 </tr>
                 <tr>
                     <th>Detalle:</th>
-                    <td>{{el_reclamo.detalle}}</td>
+                    <td>{{datos_reclamo.detalle}}</td>
                 </tr>
             </table>
             <div class="titulo" align="center"                
@@ -41,19 +36,19 @@
             <table>
                 <tr>
                     <th>Fecha &Uacute;ltima Novedad:</th>
-                    <td>{{seguimiento_sel.fecha_novedad}}</td>
+                    <td>{{datos_seguimiento.fecha_novedad}}</td>
                 </tr>
                 <tr>
                     <th>Area:</th>
-                    <td>{{seguimiento_sel.area}}</td>
+                    <td>{{datos_seguimiento.get_area_display}}</td>
                 </tr>
                 <tr>
                     <th>Observaciones:</th>
-                    <td>{{seguimiento_sel.observaciones}}</td>
+                    <td>{{datos_seguimiento.observaciones}}</td>
                 </tr>
                 <tr>
                     <th>Estado:</th>
-                    <td>{{seguimiento_sel.estado}}</td>
+                    <td>{{datos_seguimiento.get_estado_display}}</td>
                 </tr>
             </table>
         </div>

@@ -57,16 +57,12 @@ def seguimientoReclamos(request):
     print("hoy es: ",hoy.isoweekday())
     vencimiento = hoy + timedelta(days=3)
     print("Una Semana Mas", vencimiento.isoweekday())
-    #print(datetime.today().strftime('%A'))
-    js = "Esto es una prueba de como son las cosasa"
-    
  
     datos = {
        "reclamos": reclamo,
        "seguimiento" : seguimiento,
     }
     if request.method == "POST" and "btn_suministro" in request.POST:
-        print("#####boton selec Suministro#####")
         # medidor = reclamo.data.get('suministro')
         # reclamos = Reclamos.objects.values_list("id", "tipo_reclamo").filter(suministro = medidor)
         # seguimiento.fields['lista_reclamos'].choices = reclamos
@@ -77,24 +73,23 @@ def seguimientoReclamos(request):
         return render(request, "ReclamosApp/seguimientoReclamos.html", datos)
         
     elif request.method == "POST" and "btn_reclamo" in request.POST:
-        print("#####boton selec Reclamo #####")
         reclamo_id = seguimiento.data.get('lista_reclamos')
         reclamo_sel = Reclamos.objects.filter(pk = reclamo_id)
         seguimiento_sel = Seguimiento.objects.filter(reclamo = reclamo_id)
         el_reclamo = reclamo_sel[0]
         el_seguimiento = seguimiento_sel[0]
-        
-        error = "Puto el que lee"
+      
         print("Reclamo:", reclamo_sel)
         print("El reclamo:", el_reclamo)
         print("Seguimiento:", seguimiento_sel)
+        print("Seguimiento:", el_seguimiento)
         
         
         dato = {
-            "error": error,
-            "js": js,
             "reclamos": reclamo,
             "seguimiento": seguimiento,
+            "datos_reclamo": el_reclamo,
+            "datos_seguimiento" : el_seguimiento,
         }
         return render(request, "ReclamosApp/seguimientoReclamos.html", dato)
     else:

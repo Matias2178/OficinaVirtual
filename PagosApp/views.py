@@ -13,6 +13,7 @@ def cuponPago(request):
     lista = {
         "cupones" : cupones,
     }
+    
     return render(request, "PagosApp/cuponPago.html", lista)
 
 def debitoAutomatico(request):
@@ -90,19 +91,7 @@ def debitoAutomatico(request):
                 deb_auto.fields['AA'].choices = ANIOS
                 deb_auto.fields['MM'].default = hoy.month
                 mensaje = "Debito automatico adherido correctamente"
-                alerta = 3
-                # deb_auto.fields['vencimiento'].initial = tjt_vencimiento    #cargo la fecha de vencimiento
-                # deb_auto.fields['estado'].initial = "ACT"                   #paso a activo el estado de la tarjeta
-                # deb_auto.fields['banco'].initial = deb_auto.data.get('sel_banco')
-                # if deb_auto.is_valid():
-                #     mensaje = "Todo bien??"
-                #     deb_auto.save()
-                # else:
-                #     mensaje = "la cagaste"
-                #     print("no se donde la cague")
-                #     print(deb_auto)
-                #     print(deb_auto.errors)
-                
+                alerta = 3    
             
     lista = {
         "deb_auto": deb_auto,

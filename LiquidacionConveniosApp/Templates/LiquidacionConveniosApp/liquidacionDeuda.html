@@ -18,6 +18,7 @@
     </div>
     <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    <input value = {{suministro}} name = 'su_ministro' hidden>
     <div class = "row">
         <div class = "col-md-8">
             <div class="titulo" align="center"> Seleccione deuda a liquidar
@@ -33,9 +34,13 @@
                 </thead>
                 <tbody>
                     {% for deuda in deudas %}
-                        {% if deuda.estado == "PEN" %} <!-- Solo se imprimem deudas pendientes-->
+                        {% if deuda.estado == "PEN" or deuda.estado == "CPP" %} <!-- Solo se imprimem deudas pendientes o que se encuentran en proseso de generacion de un convenio de pago-->
                         <tr>
-                            <td><input type="checkbox" value = {{deuda.id}} name="apagar"></td>
+                            {% if deuda.estado == "CPP"%}
+                                <td><input checked="checked" type="checkbox" value = {{deuda.id}} name="apagar"></td>
+                            {% else %}
+                                <td><input type="checkbox" value = {{deuda.id}} name="apagar"></td>
+                            {% endif %}
                             <td>{{deuda.documento}}</td>
                             <td>{{deuda.vencimiento}}</td>
                             <td>{{deuda.importe}}</td>
@@ -44,11 +49,39 @@
                     {% empty %}
                         <td> No se registran items a abonar </td> 
                     {% endfor %}
+                    {% for deuda in deudas2 %}
+                        {% if deuda.estado == "PEN" or deuda.estado == "CPP" %} <!-- Solo se imprimem deudas pendientes o que se encuentran en proseso de generacion de un convenio de pago-->
+                        <tr>
+                            {% if deuda.estado == "CPP"%}
+                                <td><input checked="checked" type="checkbox" value = {{deuda.id}} name="apagar"></td>
+                            {% else %}
+                                <td><input type="checkbox" value = {{deuda.id}} name="apagar"></td>
+                            {% endif %}
+                            <td>{{deuda.documento}}</td>
+                            <td>{{deuda.vencimiento}}</td>
+                            <td>{{deuda.importe}}</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                    {% for deuda in deudas2 %}
+                    {% if deuda.estado == "PEN" or deuda.estado == "CPP" %} <!-- Solo se imprimem deudas pendientes o que se encuentran en proseso de generacion de un convenio de pago-->
+                    <tr>
+                        {% if deuda.estado == "CPP"%}
+                            <td><input checked="checked" type="checkbox" value = {{deuda.id}} name="apagar"></td>
+                        {% else %}
+                            <td><input type="checkbox" value = {{deuda.id}} name="apagar"></td>
+                        {% endif %}
+                        <td>{{deuda.documento}}</td>
+                        <td>{{deuda.vencimiento}}</td>
+                        <td>{{deuda.importe}}</td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
                 </tbody>
             </table>
             <div class = 'cont_botones'>
                 <button type="submit" class="btn btn-outline-primary" name="liquidar" >Cupon de Pago</button>
-                <button type="submit" class="btn btn-outline-primary" name="convenio">Convenio</button>
+                <button type="submit" class="btn btn-outline-primary" name="convenios">Convenios</button>
             </div>
         </div>
     </form>

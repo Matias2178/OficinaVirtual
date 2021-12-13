@@ -10,6 +10,7 @@ class Alerta (models.Model):
         ("PAU", "Pagos Automatico"),
         ("GES", "Gestion"),
         ("ADM", "Administracion"),
+        ("AUG", "Auto Gestion"),
     ]
     MOTIVO = [
         ("FAC", "Factura"),
@@ -19,7 +20,8 @@ class Alerta (models.Model):
         ("PPV", "Plan de Pagos Vencido"),
         ("PDA", "Pago Debito Automatico"),
         ("BDA", "Baja Debito Automatico"),
-        ("DAV", "Debito Automatico Vencido")
+        ("DAV", "Debito Automatico Vencido"),
+        ("GPP", "Generación de Plan de Pagos"),
     ]
     ESTADO = [
         ("EMI", "Emitido"),

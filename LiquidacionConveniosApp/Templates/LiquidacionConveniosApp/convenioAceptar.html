@@ -1,0 +1,49 @@
+{% extends  "OficinaVirtualApp/PlantillaBase.html" %}
+{% block trabajo %}
+<div class='container'>
+    <div cass= 'row' id= 'encabezado'>
+        <h4> Acceptar Plan de Pago </h4>
+        <hr>
+    </div>
+    <div class = 'row'>
+        <p> Suministro: {{convenio.sum}} - {{convenio.calle}} {{convenio.num}}</p>
+        <p> Monto total:  ${{convenio.monto}}</p>
+        <p> Cuotas: {{convenio.cuotas}}</p>
+        <p> Intereses: {{convenio.interes}} %</p>
+    </div>
+    <div class = "row" style = "margin: 10px 0px 20px 0px">
+        <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input  value = {{suministro}} name = 'su_ministro'>
+        <input  value = {{convenio.cuotas}} name = 'cuotas'>
+        <input  value = {{convenio.sum}} name = 'numsuministro'>
+        <input value = {{valcuota}} name = 'importeCuota'>
+        <input  value = {{convenio.monto}} name = 'importeTotal'>
+        <div class = "col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Cuota</th>
+                        <th scope="col">Importe</th>
+                        <th scope="col">Vencimiento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cuota in cuotas%}
+                    <tr>
+                        <td> {{cuota.cuota}}</td>
+                        <td> ${{cuota.importe}} </td>
+                        <td> {{cuota.vencimiento}} </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class = 'cont_botones'>
+                <button type="submit" class="btn btn-outline-primary" name="AceptarConvenio">Aceptar</button>
+                <button type="submit" class="btn btn-outline-primary" name="CancelarConvenio">Cancelar</button>
+            </div>
+       </form>
+    </div>
+</div>
+{% endblock %}

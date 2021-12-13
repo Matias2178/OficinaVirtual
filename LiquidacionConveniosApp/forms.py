@@ -1,10 +1,9 @@
 from django import forms
-from LiquidacionConveniosApp.models import Deuda
+from LiquidacionConveniosApp.models import Convenio, Deuda
 
 
 class DeudaForm (forms.ModelForm):
     liquidar = forms.BooleanField(label="business", initial=False)
-    
     class Meta:
         model = Deuda
         fields = [
@@ -30,4 +29,3 @@ class DeudaForm (forms.ModelForm):
             
         }
             
-    

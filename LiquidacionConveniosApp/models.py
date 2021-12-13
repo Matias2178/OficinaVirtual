@@ -13,11 +13,10 @@ class Convenio (models.Model):
         ("DAN", "Deuda Anulada"),
     ]
     cliente = models.ForeignKey(User, on_delete= models.CASCADE)
-    fecha_generacion = models.DateField()
+    fecha_generacion = models.DateField(auto_now_add=True)
     importe = models.FloatField()
     cuotas = models.IntegerField()
     importe_cuota = models.FloatField()
-    prox_vencimiento = models.DateField( )
     cuotas_pagadas = models.IntegerField()
     estado = models.CharField(max_length=3, choices= ESTADO)
     

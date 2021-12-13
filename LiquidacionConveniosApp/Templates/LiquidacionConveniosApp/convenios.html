@@ -1,4 +1,49 @@
 {% extends  "OficinaVirtualApp/PlantillaBase.html" %}
 {% block trabajo %}
-{{una_cuota.as_p}}
+<div class='container'>
+    <div cass= 'row' id= 'encabezado'>
+        <h4> Planes de Pago </h4>
+    </div>
+    <div class = "row" style = "margin: 20px 0px 20px 0px">
+        <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type = 'hidden' value = {{suministro}} name = 'su_ministro'>
+        <div class = "col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th scope="col">Cuotas</th>
+                        <th scope="col">Importe</th>
+                        <th scope="col">Interes Total</th>
+                        <th scope="col">T.N.A.</th>
+                        <th scope="col">IVA Intereses</th>
+                        <th scope="col">Valor Cuota</th>
+                        <th scope="col">Total Convenio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for plan in planes%}
+                        <tr>
+                            <td><input type="checkbox" value = {{plan.cuotas}} name="selPlan"></td>
+                            <td> {{plan.cuotas}}</td>
+                            <td> ${{plan.importe}} </td>
+                            <td> $ {{plan.total_intereses}} </td>
+                            <td> {{plan.tna}}</td>
+                            <td> $ {{plan.iva_intereses}} </td>
+                            <td> $ {{plan.valor_cuota}} </td>
+                            <td> $ {{plan.total_convenio}} </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class = 'cont_botones'>
+                <button type="submit" class="btn btn-outline-primary" name="convenio">Seleccionar</button>
+                <button type="submit" class="btn btn-outline-primary" name="cancelconvenio">Cancelar</button>
+            </div>
+       </form>
+    </div>
+</div>
+
 {% endblock %}

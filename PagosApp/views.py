@@ -37,8 +37,6 @@ def debitoAutomatico(request):
     
     usuario = request.user.id
     suministros = Suministro.objects.values_list("id", "suministro").filter(cliente = usuario) 
-    # print(ANIOS)
-    # print(BANCOS)
     hoy = date.today()
     deb_auto = DebitoAutomaticoFrom(request.POST)
     deb_auto.fields['suministro'].choices = suministros

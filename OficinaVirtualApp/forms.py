@@ -7,3 +7,7 @@ class RecuperarClave(forms.Form):
     email = forms.EmailField()
     mensaje = forms.CharField()
 
+
+class DatosPersonales(forms.From):
+    
+

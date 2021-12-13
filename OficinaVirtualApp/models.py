@@ -50,7 +50,7 @@ class Suministro (models.Model):
     estado = models.CharField(max_length=3, choices= ESTADO)
     
     def __str__(self):
-         return '{} - {} - {} {}'.format(self.suministro, self.cliente, self.calle, self.numero)
+         return '{} {} - {} - {} {}'.format(self.id, self.suministro, self.cliente, self.calle, self.numero)
 
  
 class Turno (models.Model):

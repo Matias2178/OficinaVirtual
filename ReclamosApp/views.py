@@ -36,8 +36,6 @@ def reclamos(request):
         form = ReclamosForm()
         return render(request, "ReclamosApp/reclamos.html", {'formulario':formulario})
 
-    
-
 def seguimientoReclamos(request):
     
     usuario = request.user.id

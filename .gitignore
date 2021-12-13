@@ -16,3 +16,4 @@ ReclamosApp/migrations/*.py
 UsuarioApp/migrations/*.py
 
 
+*.jpg

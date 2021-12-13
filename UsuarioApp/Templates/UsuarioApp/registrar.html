@@ -3,7 +3,7 @@
 {% block cuerpo %}
 <form method="post">
 {% csrf_token %}
-	<div class="row">
+	<div class="row" style = "text-align: center;">
 		<div class="col-6">
 			<div class="titulo" style = "text-align: center;">
 				<h4> Registro de Usuario</h4>
@@ -13,12 +13,9 @@
 	<div class="form-group" id = "form-registro">
 		<div class="row">
 			<div class="col">
-				<label>Suministro</label>
-				<input class="form-control" type="number" name="suministro">
-		</div>
-		<div class="row">
-			<div class="col">
 				<label>Nombre</label>
+			</div>
+			<div class="col">
 				<input class="form-control" type="text" name="first_name"  >
 			</div>
 		</div>
@@ -58,6 +55,5 @@
 			</div>
 		</div>
 	</div>
-	<list sty></list>
 </form>
 {% endblock %}

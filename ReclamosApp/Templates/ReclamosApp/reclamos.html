@@ -1,5 +1,10 @@
 {% extends  "OficinaVirtualApp/PlantillaBase.html" %}
 {% block trabajo %}
+<style>
+  label {
+    margin: 5px 0px 5px 0px;
+  }
+</style>
 
 <div class='container'>
   <div class ='row' id = 'encabezado'>
@@ -10,12 +15,12 @@
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <p>Suministro:</p>
-        {{ formulario.suministro }}
-        <p>Tipo Reclamo:</p>
-        {{ formulario.tipo_reclamo }}
+        {{ formulario.suministro }}<br>
+        <p>Tipo de Reclamo:</p>
+        {{ formulario.tipo_reclamo }}<br><br>
         <p>Detalle:</p>
-        {{ formulario.detalle }}<br>
-        <button type="submit" class="btn btn-outline-primary">Seleccionar</button>
+        {{ formulario.detalle }}<br><br>
+        <button type="submit" class="btn btn-outline-primary">Aceptar</button>
       </form>
     </div>
   </div>

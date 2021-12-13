@@ -31,7 +31,8 @@
     background: transparent;
     color: black;
     width: 75%;
-    border-style: solid;
+    border-style: transparent;
+    border-bottom: 1px solid #00853E;
     border-color: #00853E;
   }
   input[id = id_nombre]:focus, [id = id_numero_tarjeta]:focus{
@@ -39,10 +40,21 @@
     left: 0%;
     top: 0%
     background: transparent;
-    border-style: solid;
     border-color: #00853E;
   }
-  
+  select[id="id_tarjeta"], [id="id_sel_banco"], [id="id_MM"], [id="id_AA"]{
+      position: relative;
+    left: 0%;
+    top: 0%
+    border: none;
+    border-bottom: 1px solid #00853E;
+    background: transparent;
+    color: black;
+    width: 75%;
+    border-style: transparent;
+    border-bottom: 1px solid #00853E;
+    border-color: #00853E;
+  }
 </style>
 <div class='container'>
   <div class ='row' id = 'encabezado'>

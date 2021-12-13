@@ -7,6 +7,9 @@ def principal(request):
     return render(request, "OficinaVirtualApp/principal.html",{"usuario": usuario})
 
 def datosPersonales(request):
+    usuario = request.user.id
+    
+    
     return render(request, "OficinaVirtualApp/datosPersonales.html")
 
 def registro(request):

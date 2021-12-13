@@ -20,63 +20,63 @@
   }
   .imagenFondo .content{
   position: absolute;
-  top: 10%;
+  top: 5%;
   left: 0%;
   background: rgb(0, 0, 0); /* Fallback color */
   background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
   color: #f1f1f1;
   width: 100%;
-  padding: 20px;
+  padding: 0% 0%;
   }
-input[type=text], input[type=password], input[type=email] {
-  position: relative;
-  left: 50%;
-  top: 50%
-  width: 50%;
-  height:30px;
-  padding: 10px;
-  margin: 5px 10px 10px 10px;
+
+input[type=text], input[type=password ],input[type=email], input[type=number] {
   border: none;
+  border-radius: 0px;
   border-bottom: 1px solid white;
   background: transparent;
-  color: #FFFFFF;
-  font-size: 15px;
-  margin: 5px 5px;
+  color: #B0B0B0;
   text-align: center;
+  width:300px;
+  margin: 10px auto auto 0px;
 }
-input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus {
   background-color: transparent;
   color: #FFFFFF;
   outline: none;
 }
+
 label{
-  position: relative;
-  left: 50%;
-  top: 50%
+  margin: 10px auto auto 0px;
 }
+
 input[type=submit]{
-  position: relative;
-  left: 50%;
-  top: 50%
-  width: 100px;
   border-style: solid;
   border-color: white;
   background: transparent;
   padding: 10px;
-  margin: 10px 10px;
+  margin: 30px auto auto 0px;
+  width: 125px;
 }
 input[type=submit]:hover{
   background-color: #F0F0F0;
   border-color: black;
   color: black;
-  outline: none;
+  outline: none;  
 }
 
 a[type=registro], a[type=reset]{
   text-align: center;
 }
 .enlaceste{
-  text-align: center;
+  margin: 30px auto auto 0px;
+  text-align: left;
+}
+div[id=form-ingreso], [id=form-registro]{
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 10px;
+    border: none;
+    width: 300px;
 }
 
 </style>

@@ -1,17 +1,135 @@
 {% extends  "OficinaVirtualApp/PlantillaBase.html" %}
 {% block trabajo %}
+<style>
+    input[type=text], input[type=email],input[type=number] {
+        position: relative;
+        top: 00px; 
+        left: 00px;
+        width: 100%;
+        border: 1px solid;
+        background: transparent;
+        color: #00853E;
+        font-size:14px;
+        text-align: center;
+      }
+      
+      input[type=text]:focus, input[type=email]:focus, input[type=number]:focus{
+        background-color: transparent;
+        color: #00853E;
+        outline: none;
+        vertical-align: middle;
+      }
+      label{
+        position: relative;
+        top:10px; 
+        left: 20px;  
+      }
+      div[class=row] {
+        margin: 0px 0px 0px 0px;
+        padding: 10px 0px 10px 0px;
+      }
+      div [id=datos_personales] [id=label]{
+        margin: 0px 0px 0px 0px;
+        padding: 10px 0px 10px 0px;
+      }
+      .formulario {
+        position: relative;
+        top: 10%;
+        left: 10%;
+        width: 80%;
+        padding: 25px 0px 50px 0px;
+
+      }
+      
+    
+      
+ 
+</style>
 <div class = 'container'>
     <div class = 'row' id = 'encabezado'>
-        <h4> Registro de Usuario</h4><hr>
-    </div>
-    <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class = 'row'>
-        <div class = 'col-md-8'>
-        </div>
+        <h4> Actualizaci&oacuten de datos</h4><hr>
     </div>
 </div>
 
+<form class= 'formulario' method="post" enctype="multipart/form-data" >
+{% csrf_token %}
 
-
+    <div class = 'row'>
+        <div class = "col-md-2" id = 'label' >
+            <label for = 'id_username'>  Usuario: </label>
+        </div>
+        <div class = "col-md-4" id = 'datos_personales'>
+            {{usuario.username}}
+        </div>
+    </div>
+    <div class = 'row'>
+        <div class = "col-md-2" id = 'label'>
+            <label for = 'id_first_name'> Nombre: </label>
+        </div>
+        <div class = "col-md-4" id = 'datos_personales'>
+            {{usuario.first_name}}
+        </div>
+    </div>
+    <div class = 'row'>
+        <div class = "col-md-2" id = 'label'>
+            <label for = 'id_last_name'> Apellido: </label>
+        </div>
+        <div class = "col-md-4" id = 'datos_personales'>
+            {{usuario.last_name}}
+        </div>
+    <div class = 'row'>
+        <div class = "col-md-2" id = 'label'>
+            <label for = 'id_email'> Email: </label>
+        </div>
+        <div class = "col-md-4" id = 'datos_personales'>
+            {{usuario.email}}
+        </div>
+    </div>
+    <div class = 'row'  >
+        <div class = "col-md-2" id = 'label'>
+            <label for = 'id_calle'> Calle: </label>
+        </div>
+        <div class = "col-md-4" id = 'datos_personales'>
+            {{cliente.calle}}
+        </div>
+    </div>
+    <div class = 'row' >
+        <div class = "col-md-2" id = 'label'>
+            <label for = 'id_numero'> Numero: </label>
+        </div>
+        <div class = "col-md-4" id = 'datos_personales'>
+            {{cliente.numero}}
+        </div>
+    </div>
+    <div class = 'row' >
+        <div class = "col-md-2" id = 'label'>
+            <label for = 'id_piso'> Piso: </label>
+        </div>
+        <div class = "col-md-4" id = 'datos_personales'>
+            {{cliente.piso}}
+        </div>
+    </div>
+    <div class = 'row' >
+        <div class = "col-md-2" id = 'label'>
+            <label for = 'id_depto'> Departamento: </label>
+        </div>
+        <div class = "col-md-4" id = 'datos_personales'>
+            {{cliente.depto}}
+        </div>
+    </div>
+    <div class = 'row' >
+        <div class = "col-md-2" id = 'label' >
+            <label for = 'id_barrio' > Barrio: </label>
+        </div>
+        <div class = "col-md-4" id = 'datos_personales'>
+            {{cliente.barrio}}
+        </div>
+    </div>
+    <div class = 'row' >
+        <div class = "col-md-8" >   
+            <button type="submit" class="btn btn-outline-primary" name='guardar'>Guardar</button>
+        </div>
+    </div>
+    </form>
+</div>
 {% endblock %}

@@ -13,9 +13,8 @@ def alertas(request):
     alertas = Alerta.objects.filter(cliente = cliente).order_by('-id')
     Alerta.objects.filter(cliente = cliente, estado = "EMI").update(estado = "VIS")
     if request.method == "POST":
-        print("Aceptado")
-        Alerta.objects.filter(cliente = cliente, estado = "VIS").update(estado = "ACE")
-        return render(request, "AvisosAlertasApp/alertas.html", {"alertas": alertas})
         
+        Alerta.objects.filter(cliente = cliente, estado = "VIS").update(estado = "ACE")
+        return render(request, "AvisosAlertasApp/alertas.html", {"alertas": alertas})   
     return render(request, "AvisosAlertasApp/alertas.html", {"alertas": alertas})
 

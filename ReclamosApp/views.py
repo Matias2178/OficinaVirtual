@@ -19,7 +19,6 @@ def reclamos(request):
         if formulario.is_valid():
             formulario.save()
             id_rec = reclamo.objects.last()
-            print(id_rec)
             seg = Seguimiento(reclamo = id_rec,
                               fecha_novedad = datetime.now(),
                               area = 'REC',
@@ -52,9 +51,7 @@ def seguimientoReclamos(request):
     reclamos = Reclamos.objects.values_list("id", "tipo_reclamo").filter(suministro = medidor)
     seguimiento.fields['lista_reclamos'].choices = reclamos
     hoy = datetime.now()
-    print("hoy es: ",hoy.isoweekday())
     vencimiento = hoy + timedelta(days=3)
-    print("Una Semana Mas", vencimiento.isoweekday())
  
     datos = {
        "reclamos": reclamo,
@@ -77,12 +74,6 @@ def seguimientoReclamos(request):
         el_reclamo = reclamo_sel[0]
         el_seguimiento = seguimiento_sel[0]
       
-        print("Reclamo:", reclamo_sel)
-        print("El reclamo:", el_reclamo)
-        print("Seguimiento:", seguimiento_sel)
-        print("Seguimiento:", el_seguimiento)
-        
-        
         dato = {
             "reclamos": reclamo,
             "seguimiento": seguimiento,

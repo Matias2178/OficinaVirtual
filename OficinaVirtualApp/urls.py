@@ -19,6 +19,7 @@ from django.contrib.auth.decorators import login_required
 urlpatterns = [
     path('principal/', login_required(views.principal), name="principal"),
     path('datosPersonales/', login_required(views.datosPersonales), name="datosPersonales"),
-    path('registro/', login_required(views.registro), name="registro"),    
+    path('registro/', login_required(views.registro), name="registro"),
+    path('suministros/', login_required(views.infoSuministro), name="infoSuministro"),
     ]
 

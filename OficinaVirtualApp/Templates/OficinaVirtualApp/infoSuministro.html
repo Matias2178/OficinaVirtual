@@ -1,0 +1,124 @@
+{% extends  "OficinaVirtualApp/PlantillaBase.html" %}
+{% block trabajo %}
+<style>
+    input[type=number] {
+        position: relative;
+        top: 00px; 
+        left: 00px;
+        width: 100%;
+        border: 1px solid;
+        background: transparent;
+        color: #00853E;
+        font-size:14px;
+        text-align: center;
+      }
+    button{
+        position: relative;
+        bottom: 0px; 
+        rigth: 10px;
+    }
+    input[id=id_numero]{
+        width: 50%;
+        position: relative;
+        top: 10px; 
+        left: 25%;
+
+    }
+</style>
+    <div class='container'>
+        <div class ='row' id = 'encabezado'>
+            <h4> Suministros</h4><hr>
+        </div>
+        <div class = 'row'>
+            <div class = "col-md-7" >
+            {% for info in infoSum  %}
+                <div style = 'padding: 0px 0px 0px 0px;  margin: 0px 0px 30px 0px ;'>
+                    <p><FONT SIZE=5> Suministro:</FONT> <FONT SIZE=4>{{info.suministro}} </FONT></p>
+                    <table>
+                        <tr>
+                            <th>Calle</th>
+                            <td>{{info.calle}}</td>
+                            <th>Numero</th> 
+                            <td>{{info.numero}}</td>
+                        </tr>
+                        <tr>
+                            <th>Piso</th>
+                            <td>{{info.piso}}</td>
+                            <th>Depto</th> 
+                            <td>{{info.depto}}</td>
+                        </tr>
+                        <tr>
+                            <th>Barrio</th>
+                            <td>{{info.barrio}}</td>
+                            <td></td><td></td>
+                        </tr>
+                        <tr>
+                            <th>Demanda</th>
+                            <td>{{info.get_demanda_display}}</td>
+                            <td></td><td></td>
+                        </tr>
+                        <tr>
+                            <th>Tipo Consumo</th>
+                            <td>{{info.get_tipo_consumo_display}}</td>
+                            <th >Estado:</th>
+                            <td>{{info.get_estado_display}}</td>
+                    </table>
+                </div>
+                <hr>
+            {% empty %}
+                <h4> No se encuentran suministros Asociados</h5>
+            {% endfor %}
+            </div>
+            <div class = "col-md-5" >
+                <p><FONT SIZE=5> Asociar Nuevo Suministro</FONT></p>
+                <hr>
+                <p><FONT SIZE=3>Ingresar número de suministro a asociar</FONT></p>
+                <form method="post" enctype="multipart/form-data" > 
+                    {% csrf_token %}
+                    <input type="number" name="numSuministro" required class="form-control"  id="id_numero" value = {{nuevoSuministro.suministro}}>
+                    <button type="submit" class="btn btn-outline-primary" name="buscarSuministro" style="width: 100px;">buscar</button>
+
+                    {% if texto %}
+                        <p>{{texto}} </p>
+
+                    {% else %}
+                    <input type= "hidden" name= 'idSuministro' value = {{nuevoSuministro.id}} >
+                    <p><FONT SIZE=5> Suministro:</FONT> <FONT SIZE=4>{{nuevoSuministro.suministro}} </FONT></p>
+                    <table style = 'padding : 0px'>
+                        <tr>
+                            <th>Calle</th>
+                            <td>{{nuevoSuministro.calle}}</td>
+                            <th>Numero</th> 
+                            <td>{{nuevoSuministro.numero}}</td>
+                        </tr>
+                        <tr>
+                            <th>Piso</th>
+                            <td>{{nuevoSuministro.piso}}</td>
+                            <th>Depto</th> 
+                            <td>{{nuevoSuministro.depto}}</td>
+                        </tr>
+                        <tr>
+                            <th>Barrio</th>
+                            <td>{{nuevoSuministro.barrio}}</td>
+                            <td></td><td></td>
+                        </tr>
+                        <tr>
+                            <th>Demanda</th>
+                            <td>{{nuevoSuministro.get_demanda_display}}</td>
+                            <td></td><td></td>
+                        </tr>
+                        <tr>
+                            <th>Tipo Consumo</th>
+                            <td>{{nuevoSuministro.get_tipo_consumo_display}}</td>
+                            <th >Estado:</th>
+                            <td>{{nuevoSuministro.get_estado_display}}</td>
+                    </table>
+
+                        <button type="submit" class="btn btn-outline-primary" name="asociarSuministro" style="width: 100px;">asociar</button>
+
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

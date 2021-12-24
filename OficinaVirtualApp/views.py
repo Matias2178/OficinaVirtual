@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse
 from django.views.generic import CreateView
 from OficinaVirtualApp.forms import ClienteForm
-from OficinaVirtualApp.models import Cliente
+from OficinaVirtualApp.models import Cliente, Suministro
 from django.contrib.auth.models import User
 from UsuarioApp.forms import RegistrarForm
 
@@ -59,6 +59,51 @@ def datosPersonales(request):
 def registro(request):
     return render(request, "OficinaVirtualApp/registroAAA.html")
 
+def infoSuministro(request):
+    usuario= request.user
+    suministros = Suministro.objects.filter(cliente = usuario)
+    print(suministros)
+    info = {
+        'infoSum' : suministros,
+        'texto' : ' ',
+    }
+    if request.method== 'POST' and 'buscarSuministro' in request.POST:
+        sumiNumero = int (request.POST.get('numSuministro'))
+        sumini = Suministro.objects.values().filter(suministro = sumiNumero)
+         #if sumini[0][cliente_id]
+        print("*************************************************************")
+        print(sumiNumero, sumini)
+        if not sumini:
+            print('el numero que ingresaste no pertenece a un abonado en servicio')
+            texto = 'El número ingresado no pertenece a un Suministro en servicio'  
+            info = {
+                'infoSum' : suministros,
+                'texto' : texto,
+            }          
+        elif sumini[0]['cliente_id']:
+            texto = 'El suministro seleccionado ya se encuenta asociado a otra cuenta'
+            print("queres cagarle en medidor a otra persona")
+            print(sumini[0]['cliente_id'])
+            info = {
+                'infoSum' : suministros,
+                'texto' : texto,
+            } 
+        else:
+            info = {
+                'infoSum' : suministros,
+                'nuevoSuministro' : sumini[0],
+            }
+        return render(request, "OficinaVirtualApp/infoSuministro.html", info)
+    
+    elif request.method== 'POST' and 'asociarSuministro' in request.POST:
+        idSum = int(request.POST.get('idSuministro'))
+        Suministro.objects.filter(id = idSum).update(cliente = usuario)
+        info = {
+            'infoSum' : suministros,
+            'texto': "Suministro asociado Correctamente",
+        }
+        return render(request, "OficinaVirtualApp/infoSuministro.html", info)  
+    return render(request, "OficinaVirtualApp/infoSuministro.html", info)
 #class DatosUsuario(CreateView):
     
     

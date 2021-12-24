@@ -1,0 +1,174 @@
+{% extends  "OficinaVirtualApp/PlantillaBase.html" %}
+{% block trabajo %}
+<style>
+   input[type=text], input[type=password], input[type=email],input[type=number] {
+    position: relative;
+    left: 0%;
+    top: 0%
+    width: 50%;
+    height:35px;
+    padding: 10px;
+    margin: 10px 10px; 
+    border: none;
+    border-bottom: 1px solid #00853E;
+    background: transparent;
+    color: #00853E;
+    font-size:15px;
+    margin: 5px 5px;
+    text-align: left;
+  }
+  input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus{
+    background-color: transparent;
+    color: #00853E;
+    outline: none;
+  }
+  input[id = id_nombre], [id = id_numero_tarjeta]{
+    position: relative;
+    left: 0%;
+    top: 0%
+    border:  1px solid #00853E;
+    background: transparent;
+    color: black;
+    width: 75%;
+    border-style: transparent;
+    border-bottom: 1px solid #00853E;
+    border-color: #00853E;
+  }
+  input[id = id_nombre]:focus, [id = id_numero_tarjeta]:focus{
+    position: relative;
+    left: 0%;
+    top: 0%
+    background: transparent;
+    border-color: #00853E;
+  }
+  select[id="id_tarjeta"], [id="id_sel_banco"], [id="id_MM"], [id="id_AA"]{
+      position: relative;
+    left: 0%;
+    top: 0%
+    border:  1px solid #00853E;
+    background: transparent;
+    color: black;
+    width: 75%;
+    border-style: transparent;
+    border-bottom: 1px solid #00853E;
+    border-color: #00853E;
+  }
+</style>
+<div class='container'>
+  <div class ='row' id = 'encabezado'>
+    <h4> Pago con Debito Automatico</h4><hr>
+  </div>
+  <div class ='row' id = 'encabezado'>
+    <h5> Monto a cancelar:  $ {{monto}}</h5>
+  </div>
+   
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8">             
+        <p>Tarjeta:</p>
+        <select name="tarjeta" required id="id_tarjeta">
+          <option value="" selected>---------</option>
+          <option value="VSC">VISA – TARJETA DE CRÉDITO</option>
+          <option value="VSD">VISA - TARJETA DE DÉBITO</option>
+          <option value="MTC">MAESTRO - TARJETA DE CREDITO</option>
+          <option value="MTD">MAESTRO - TARJETA DE DÉBITO</option>
+          <option value="MCR">MASTERCARD</option>
+        </select><BR>
+      </div>
+    </div>
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8">     
+        <p>Banco:</p>
+        <select name="sel_banco" class="form-control" id="id_sel_banco">
+          <option value="0">DESCONOCIDO</option>        
+          <option value="1">NUEVO BANCO DE SANTA FE S.A.</option>        
+          <option value="2">BANCO MACRO S.A.</option>        
+          <option value="3">BANCO SANTANDER RÍO S.A.</option>        
+          <option value="4">BBVA BANCO FRANCES S.A.</option>        
+          <option value="5">CITIBANK</option>        
+          <option value="6">BANCO DE LA NACIÓN ARGENTINA</option>        
+          <option value="7">BANCO PROV. DE BUENOS AIRES</option>        
+          <option value="8">ICBC - BANK CHINA</option>        
+          <option value="9">BANCO PROV. DE CÓRDOBA</option>        
+          <option value="10">BANCO SUPERVIELLE S.A.</option>        
+          <option value="11">BANCO CIUDAD DE BUENOS AIRES</option>        
+          <option value="12">BANCO PATAGONIA S.A.</option>        
+          <option value="13">BANCO HIPOTECARIO S.A.</option>        
+          <option value="14">HSBC BANK ARGENTINA S.A.</option>        
+          <option value="15">BANCO CREDICOOP COOP.LTDO.</option>        
+          <option value="16">BANCO COMAFI SOCIEDAD ANÓNIMA</option>        
+          <option value="17">NUEVO BANCO DEL CHACO S.A.</option>        
+          <option value="18">NUEVO BANCO DE ENTRE RÍOS S.A.</option>        
+          <option value="19">BANCO BICA S.A.</option>        
+        </select><BR>
+      </div>
+    </div>
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8">   
+        <p>Nombre del titular de la tarjeta:</p>
+        <input type="text" name="nombre" maxlength="80" required id="id_nombre">
+      </div>
+    </div>
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8"> 
+        <p>Número de tarjeta: (Ingrese todos los n&uacute;meros sin guiones ni espacios)</p>
+        <input type="number" name="numero_tarjeta" min="0" max="9223372036854775807" required id="id_numero_tarjeta"><br>
+      </div>
+    </div>
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8"> 
+        <p>Codigo Seguridad</p>
+        <input type="number" name="codigo_seguridad" min="0" max="999" required id="id_codigo_seguridad"><br>
+      </div>
+    </div>
+    <div class = 'row' id ="filas">   
+      <p> Vencimiento de la tarjeta:</p>
+      <div class = "col-md-4">
+        <p>Mes</p>
+        <select name="MM" class="form-control" type="text" size="1" id="id_MM">
+          <option value="1">Enero</option>        
+          <option value="2">Febrero</option>        
+          <option value="3">Marzo</option>        
+          <option value="4">Abril</option>        
+          <option value="5">Mayo</option>        
+          <option value="6">Junio</option>        
+          <option value="7">Julio</option>       
+          <option value="8">Agosto</option>        
+          <option value="9">Septiembre</option>        
+          <option value="10">Octubre</option>        
+          <option value="11">Noviembre</option>        
+          <option value="12">Diciembre</option>        
+        </select>  
+      </div>
+      <div class = "col-md-4"> 
+        <p>Año</p>                                 
+        <select name="AA" class="form-control" type="text" size="1" id="id_AA">
+          <option value="2021">2021</option>        
+          <option value="2022">2022</option>        
+          <option value="2023">2023</option>        
+          <option value="2024">2024</option>        
+          <option value="2025">2025</option>        
+          <option value="2026">2026</option>        
+          <option value="2027">2027</option>        
+          <option value="2028">2028</option>        
+          <option value="2029">2029</option>        
+          <option value="2030">2030</option>       
+          <option value="2031">2031</option>
+          <option value="2032">2032</option>
+          <option value="2033">2033</option>
+          <option value="2034">2034</option>
+          <option value="2035">2035</option>
+        </select>
+      </div>
+    </div>
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8" >   
+        <button type="submit" class="btn btn-outline-primary" name="tarjetaPagar">Pagar</button>
+      </div>
+    </div>
+  </form>
+
+</div>
+
+{% endblock %}

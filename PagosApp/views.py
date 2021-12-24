@@ -1,4 +1,5 @@
 
+from django.db.models.deletion import SET_NULL
 from django.shortcuts import render, HttpResponse
 from datetime import date
 from OficinaVirtualApp.models import Suministro
@@ -6,13 +7,63 @@ from PagosApp.models import Debito_Automatico, Cupon_Pago
 from PagosApp.forms import DebitoAutomaticoFrom, BajaDebitoAutomaticoFrom
 from AvisosAlertasApp.funciones import CargarAviso
 from PagosApp.funciones import ControlFecha
+from PagosApp.forms import PagoTarjetaFrom
+from LiquidacionConveniosApp.models import Deuda 
 
 def cuponPago(request):
     usuario = request.user.id
-    cupones = Cupon_Pago.objects.filter(cliente = usuario)
+    cupones = Cupon_Pago.objects.filter(cliente = usuario).exclude( estado =  'PAG')
     lista = {
         "cupones" : cupones,
     }
+    if request.method == 'POST' and 'cancelar' in request.POST :
+        #borra todos los datos del cupon de pago generado.
+        cupon = request.POST.getlist('idcupon')
+        if len(cupon):
+            for cp in cupon: 
+                idcupon = Cupon_Pago.objects.values('id').filter(id = cp)
+                Deuda.objects.filter(cupon_pago = idcupon).update(estado = 'PEN', cupon_pago = None)
+                Cupon_Pago.objects.filter(id = idcupon).update(estado = 'APU')
+            
+            return render(request, "OficinaVirtualApp/principal.html" )
+        
+    if request.method == 'POST' and 'tarjeta_debito' in request.POST :
+        cupon = request.POST.getlist('idcupon')
+        monto = 0.0
+        if len(cupon):
+            for cp in cupon: 
+                apagar = Cupon_Pago.objects.values('importe').filter(id = cp)
+                Cupon_Pago.objects.filter(id = cp).update(estado = "EDP")
+                monto = monto + apagar[0]['importe']
+                
+                
+        #datos = TarjetaDatos()
+        #inicio = {
+        #    "MM" : datos['meses'],
+        #    "AA" : datos['anios'],
+        #    "sel_banco" : datos["bancos"],
+        #    "tarjeta" : datos['tarjetas'],
+        #    "titular" : "",
+        #    "numero_tarjeta" : 0,
+        #}  
+        #pagoTarjeta = PagoTarjetaFrom(initial = inicio)     
+        lista={
+            'monto' : monto,
+            #'pagoTarjeta' : pagoTarjeta,
+        }   
+        return render(request, "PagosApp/tarjetaDebito.html", lista )
+#**************************************************************************
+# Se hace el pago con la tarjeta de debito
+#**************************************************************************     
+    elif request.method=='POST' and 'tarjetaPagar' in request.POST:
+        cupones = Cupon_Pago.objects.values('id', ).filter(cliente = usuario, estado = "EDP")
+        for cupon in cupones:
+            Deuda.objects.filter(cupon_pago = cupon['id'], estado = 'PPA' ).update(estado = 'CAN') 
+        
+        Cupon_Pago.objects.filter(cliente = usuario, estado = "EDP").update(estado = 'PAG')       
+        
+        return render(request, "OficinaVirtualApp/principal.html" )
+                
     
     return render(request, "PagosApp/cuponPago.html", lista)
 

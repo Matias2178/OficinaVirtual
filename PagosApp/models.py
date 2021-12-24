@@ -5,12 +5,14 @@ from django.contrib.auth.models import User
 class Cupon_Pago(models.Model):
     ESTADO =[
         ("PEN", "Pendiente de Pago"),
+        ("EDP", "En proceso de pago"),
         ("PAG", "Pagado"),
         ("VEN", "Plan de Pagos Vencido"),
         ("APU", "Anulado por Usuario"),
     ]
     MEDIO_PAGO = [
         ("TJC", "Tarjeta de Credito"),
+        ("TJD", "Tarjeta de Debito"),
         ("EFT", "Efectivo"),
         ("SNP", "Sin pago ") 
      ]
@@ -21,7 +23,7 @@ class Cupon_Pago(models.Model):
     fecha_pago = models.DateTimeField(blank=True, null= True)
     medio_pago =models.CharField(max_length=3, choices= MEDIO_PAGO)
     estado = models.CharField(max_length=3, choices= ESTADO)
-    
+  
     
 class Pagos (models.Model):
     cliente = models.ForeignKey(User, on_delete= models.CASCADE)

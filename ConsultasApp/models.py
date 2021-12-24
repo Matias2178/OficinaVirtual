@@ -12,7 +12,7 @@ class Factura (models.Model):
     documento = models.BinaryField()
     
     def __str__(self):
-        return '{}'.format(self.detalle_documento)
+        return '{}-{} - Vencimiento: {} Importe ${} '.format(self.suministro, self.detalle_documento, self.vencimiento_pri, self.importe_pri)
 
 class Consumo (models.Model):
     suministro = models.ForeignKey(Suministro, on_delete= models.CASCADE)

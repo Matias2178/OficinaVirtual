@@ -12,11 +12,9 @@ def consultaFacturas(request):
     facturas.fields['suministro'].choices = suministros
     
     lista_facturas = ""
-
-    if request.method == 'POST' and facturas.is_valid():
+    if request.method == 'POST' :
         medidor = facturas.data.get("suministro")
-        lista_facturas = Factura.objects.filter(suministro = medidor)
-        
+        lista_facturas = Factura.objects.filter(suministro = medidor)        
     lista = {
                 "facturas": facturas,
                 "datos": lista_facturas,

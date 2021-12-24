@@ -14,11 +14,11 @@
     <div class = "row" style = "margin: 10px 0px 20px 0px">
         <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input  value = {{suministro}} name = 'su_ministro'>
-        <input  value = {{convenio.cuotas}} name = 'cuotas'>
-        <input  value = {{convenio.sum}} name = 'numsuministro'>
-        <input value = {{valcuota}} name = 'importeCuota'>
-        <input  value = {{convenio.monto}} name = 'importeTotal'>
+        <input  type = 'hidden' value = {{suministro}} name = 'su_ministro'>
+        <input  type = 'hidden' value = {{convenio.cuotas}} name = 'cuotas'>
+        <input  type = 'hidden' value = {{convenio.sum}} name = 'numsuministro'>
+        <input  type = 'hidden' value = {{valcuota}} name = 'importeCuota'>
+        <input  type = 'hidden' value = {{convenio.monto}} name = 'importeTotal'>
         <div class = "col">
             <table class="table">
                 <thead>

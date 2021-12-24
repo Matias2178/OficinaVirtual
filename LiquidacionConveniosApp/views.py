@@ -2,10 +2,12 @@ from django.shortcuts import render, HttpResponse, redirect
 from LiquidacionConveniosApp.models import Deuda, Convenio
 from LiquidacionConveniosApp.forms import  DeudaForm
 from OficinaVirtualApp.models import Suministro
+from PagosApp.forms import PagoTarjetaFrom
 from PagosApp.models import Pagos, Cupon_Pago
 from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
 from AvisosAlertasApp.funciones import CargarAviso
+from PagosApp.funciones import TarjetaDatos
 
 # Create your views here.
 TNA_Cuota = {1: 0.0, 2: 6.0, 3: 12.0, 6: 15.0, 8: 20.0, 12: 18.0, 24: 30.0, 36 : 40.0}
@@ -27,10 +29,10 @@ def liquidacionDeuda(request):
     #para filtrar los vencimintos de los proximos dos meses
     fecha = date.today() + relativedelta(months = 3)
     fecha.replace(day=1)
+   # Deuda.objects.filter(suministro = suministro, estado = 'PPA').update(estado = 'PEN')
     
     deudas = Deuda.objects.filter(suministro = suministro, estado__contains = 'PEN', vencimiento__lt = fecha)
     deudas2 = Deuda.objects.filter(suministro = suministro, estado__contains = 'CPP')
-    print(deudas)
     liquidacion = {
         "form": formulario_deuda,
         "deudas": deudas,
@@ -41,8 +43,9 @@ def liquidacionDeuda(request):
 
         return render(request, "LiquidacionConveniosApp/liquidacionDeuda.html",liquidacion)
     
-    elif request.method=='POST' and 'liquidar' in request.POST:
+    elif request.method=='POST' and 'pagar' in request.POST:
         datos = request.POST.getlist('apagar')
+        sm = request.POST.getlist('suministro')
         if len(datos):
             #calculo el total de los importes
             importe = 0.0
@@ -68,25 +71,75 @@ def liquidacionDeuda(request):
             )
             pago.save()
             id_pago = Cupon_Pago.objects.last()
-            print("Cupon de pago:", id_pago)
             for dato in datos:
-                Deuda.objects.filter(id = dato).update(cupon_pago = id_pago, estado = 'PPA')
-                
-        cupones = Cupon_Pago.objects.filter(cliente = usuario)
+                Deuda.objects.filter(id = dato).update(estado = 'PPA', cupon_pago = id_pago)
+            
+        cupones = Cupon_Pago.objects.filter(cliente = usuario).exclude( estado =  'PAG')
         lista = {
             "cupones" : cupones,
+            'suministro': sm,
         }
-        return render(request, "PagosApp/cuponPago.html", lista)        
+        return render(request, "LiquidacionConveniosApp/pago.html", lista)
+#**************************************************************************
+# se cancela el pago
+#**************************************************************************
+    elif request.method=='POST' and 'cancelarPago' in request.POST: 
+         #borra todos los datos del cupon de pago generado.
+        cupon = request.POST.getlist('idcupon')
+        if len(cupon):
+            for cp in cupon: 
+                idcupon = Cupon_Pago.objects.values('id').filter(id = cp)
+                Deuda.objects.filter(cupon_pago = idcupon).update(estado = 'PEN')
+                Cupon_Pago.objects.filter(id = idcupon).update(estado = 'APU')
+            
+            return render(request, "OficinaVirtualApp/principal.html" )    
+#**************************************************************************
+# Pago con tarjeta de debito
+#**************************************************************************
+    elif request.method=='POST' and 'tarjetaDebito' in request.POST: 
+        cupon = request.POST.getlist('idcupon')
+        monto = 0.0
+        if len(cupon):
+            for cp in cupon: 
+                apagar = Cupon_Pago.objects.values('importe').filter(id = cp)
+                Cupon_Pago.objects.filter(id = cp).update(estado = "EDP")
+                monto = monto + apagar[0]['importe']
+                
+                
+        datos = TarjetaDatos()
+        inicio = {
+            "MM" : datos['meses'],
+            "AA" : datos['anios'],
+            "sel_banco" : datos["bancos"],
+            "tarjeta" : datos['tarjetas'],
+            "titular" : "",
+            "numero_tarjeta" : 0,
+        }  
+        pagoTarjeta = PagoTarjetaFrom(initial = inicio)     
+        lista={
+            'monto' : monto,
+            'pagoTarjeta' : pagoTarjeta,
+        }   
+        return render(request, "LiquidacionConveniosApp/tarjetaDebito.html", lista )
+#**************************************************************************
+# Se hace el pago con la tarjeta de debito
+#**************************************************************************     
+    elif request.method=='POST' and 'tarjetaPagar' in request.POST:
+        cupones = Cupon_Pago.objects.values('id', ).filter(cliente = usuario, estado = "EDP")
+        for cupon in cupones:
+            Deuda.objects.filter(cupon_pago = cupon['id'], estado = 'PPA' ).update(estado = 'CAN') 
+        
+        Cupon_Pago.objects.filter(cliente = usuario, estado = "EDP").update(estado = 'PAG')       
+        
+        return render(request, "OficinaVirtualApp/principal.html" )
     
 #**************************************************************************
 # Aca comineza el convenio de pago
-#*************************************************************************
+#**************************************************************************
     elif request.method=='POST' and 'convenios' in request.POST:
         datos = request.POST.getlist('apagar')
         sm = request.POST.get('su_ministro') #rescata el numero de sumnistro "posteado"
-        print("suministro: ",sm)
-        #borrar los ccp por si fueron deseleccionados que no incidan en el calculo de la deuda
-        
+        #borrar los ccp por si fueron deseleccionados ue no incidan en el calculo de la deuda
         Deuda.objects.filter(suministro = sm, estado = 'CPP').update(estado = 'PEN') 
         importe = 0.0
         if len(datos): 
@@ -109,10 +162,8 @@ def liquidacionDeuda(request):
     elif request.method=='POST' and 'convenio' in request.POST:
         planSelect = request.POST.getlist('selPlan')
         sm = request.POST.get('su_ministro')
-        suministroPlan = Suministro.objects.values("suministro", "calle", "numero").filter(id = sm) 
-        print(suministroPlan)
+        suministroPlan = Suministro.objects.values("suministro", "calle", "numero").filter(id = sm) )
         cuotas = 0
-        print(len(planSelect), planSelect)
         if len(planSelect):
             for selec in planSelect:
                 cuotas = int(selec)
@@ -141,7 +192,6 @@ def liquidacionDeuda(request):
             "suministro": sm,
             "valcuota": valorCuota,
         }
-        print("datos:          ", informacion)
        
         return render(request, "LiquidacionConveniosApp/convenioAceptar.html", informacion)
    
@@ -154,7 +204,6 @@ def liquidacionDeuda(request):
         impTot = float (comaypunto(request.POST.get('importeTotal')))
         impCts = float (comaypunto(request.POST.get('importeCuota')))
 
-        print( clt, sm, cts, impTot, impCts)
         #Primero genero el convenio de pago
         convenio = Convenio(
             cliente = clt,
@@ -167,7 +216,6 @@ def liquidacionDeuda(request):
         convenio.save()
         #busco el id del convenio generado
         idConvenio = Convenio.objects.values("id").filter(cliente = clt).last()
-        print("Id convenio", idConvenio["id"])
         
         #Paso los items seleccionados los relaciono con el convenio de pago
         Deuda.objects.filter(suministro = sm, estado = 'CPP').update(estado = 'CDP', convenio = idConvenio["id"])
@@ -216,7 +264,9 @@ def generaCuotas(cuotas, importeCuota, suministro):
         cuotas_generadas.append(cuota)
     return cuotas_generadas
     
-    
+def PlanDePago(request):
+    i=0  
+    return render(request, "OficinaVirtualApp/principal.html" )
     
 def convenios(request, planes): 
     return render(request,"LiquidacionConveniosApp/convenios.html", planes)

@@ -1,0 +1,120 @@
+{% extends  "OficinaVirtualApp/PlantillaBase.html" %}
+{% block trabajo %}
+<style>
+   input[type=text], input[type=password], input[type=email],input[type=number] {
+    position: relative;
+    left: 0%;
+    top: 0%
+    width: 50%;
+    height:35px;
+    padding: 10px;
+    margin: 10px 10px; 
+    border: none;
+    border-bottom: 1px solid #00853E;
+    background: transparent;
+    color: #00853E;
+    font-size:15px;
+    margin: 5px 5px;
+    text-align: left;
+  }
+  input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus{
+    background-color: transparent;
+    color: #00853E;
+    outline: none;
+  }
+  input[id = id_nombre], [id = id_numero_tarjeta]{
+    position: relative;
+    left: 0%;
+    top: 0%
+    border: none;
+    border-bottom: 1px solid #00853E;
+    background: transparent;
+    color: black;
+    width: 75%;
+    border-style: transparent;
+    border-bottom: 1px solid #00853E;
+    border-color: #00853E;
+  }
+  input[id = id_nombre]:focus, [id = id_numero_tarjeta]:focus{
+    position: relative;
+    left: 0%;
+    top: 0%
+    background: transparent;
+    border-color: #00853E;
+  }
+  select[id="id_tarjeta"], [id="id_sel_banco"], [id="id_MM"], [id="id_AA"]{
+      position: relative;
+    left: 0%;
+    top: 0%
+    border: none;
+    border-bottom: 1px solid #00853E;
+    background: transparent;
+    color: black;
+    width: 75%;
+    border-style: transparent;
+    border-bottom: 1px solid #00853E;
+    border-color: #00853E;
+  }
+</style>
+<div class='container'>
+  <div class ='row' id = 'encabezado'>
+    <h4> Pago con Debito Automatico</h4><hr>
+  </div>
+  <div class ='row' id = 'encabezado'>
+    <h5> Monto a cancelar:  $ {{monto}}</h5>
+  </div>
+   
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input  value = {{suministro}} name = 'su_ministro'>
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8">             
+        <p>Tarjeta:</p>
+        {{pagoTarjeta.tarjeta}}<BR>
+      </div>
+    </div>
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8">     
+        <p>Banco:</p>
+        {{pagoTarjeta.sel_banco}}<BR>
+      </div>
+    </div>
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8">   
+        <p>Nombre del titular de la tarjeta:</p>
+        {{pagoTarjeta.titular}}
+      </div>
+    </div>
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8"> 
+        <p>Número de tarjeta: (Ingrese todos los n&uacute;meros sin guiones ni espacios)</p>
+        {{pagoTarjeta.numero_tarjeta}}<br>
+      </div>
+    </div>
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8"> 
+        <p>Codigo Seguridad</p>
+        {{pagoTarjeta.codigo_seguridad}}<br>
+      </div>
+    </div>
+    <div class = 'row' id ="filas">   
+      <p> Vencimiento de la tarjeta:</p>
+      <div class = "col-md-4">
+        <p>Mes</p>
+        {{pagoTarjeta.MM}}  
+      </div>
+      <div class = "col-md-4"> 
+        <p>Año</p>                                 
+        {{pagoTarjeta.AA}}
+      </div>
+    </div>
+    <div class = 'row' id ="filas">
+      <div class = "col-md-8" >   
+        <button type="submit" class="btn btn-outline-primary" name="tarjetaPagar">Pagar</button>
+      </div>
+    </div>
+  </form>
+
+</div>
+
+{% endblock %}
